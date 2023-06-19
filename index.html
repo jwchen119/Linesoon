@@ -19,39 +19,39 @@
             left: 10px;
         }
         
-        .image-container .start_y {
+        .image-container #start_y1 {
             left: 547px;
             top: 586px;
             width: 60px;
         }
         
-        .image-container .d1_diameter {
+        .image-container #d1_diameter1 {
             left: 70px;
             top: 333px;
             width: 60px;
         }
         
-        .image-container .r1_fillet {
+        .image-container #r1_fillet1 {
             left: 263px;
             top: 230px;
             width: 60px;
         }
-        .image-container .a1_angle {
+        .image-container #a1_angle1 {
             left: 300px;
             top: 420px;
             width: 60px;
         }
-        .image-container .d2_diameter {
+        .image-container #d2_diameter1 {
             left: 748px;
             top: 467px;
             width: 60px;
         }
-        .image-container .r2_fillet {
+        .image-container #r2_fillet1 {
             left: 489px;
             top: 383px;
             width: 60px;
         }
-        .image-container .nose_radius {
+        .image-container #nose_radius1 {
             left: 513px;
             top: 149px;
             width: 60px;
@@ -294,13 +294,13 @@
     <div class="image-container">
         <img id="myImage" src="p1.png" alt="My Image">
         <div class="input-container">
-            <input type="text" placeholder="初始Y" onfocus="this.placeholder=''" onblur="this.placeholder='初始Y'" class="start_y">
-            <input type="text" placeholder="D1直徑" onfocus="this.placeholder=''" onblur="this.placeholder='D1直徑'" class="d1_diameter">
-            <input type="text" placeholder="R1圓角" onfocus="this.placeholder=''" onblur="this.placeholder='R1圓角'" class="r1_fillet">
-            <input type="text" placeholder="A1角度" onfocus="this.placeholder=''" onblur="this.placeholder='A1角度'" class="a1_angle">
-            <input type="text" placeholder="D2直徑" onfocus="this.placeholder=''" onblur="this.placeholder='D2直徑'" class="d2_diameter">
-            <input type="text" placeholder="R2圓角" onfocus="this.placeholder=''" onblur="this.placeholder='R2圓角'" class="r2_fillet">
-            <input type="text" placeholder="刀鼻半徑" onfocus="this.placeholder=''" onblur="this.placeholder='刀鼻半徑'" class="nose_radius">
+            <input type="text" placeholder="初始Y" onfocus="this.placeholder=''" onblur="this.placeholder='初始Y'" id="start_y" class="test_a">
+            <input type="text" placeholder="D1直徑" onfocus="this.placeholder=''" onblur="this.placeholder='D1直徑'" id="d1_diameter" class="test_a">
+            <input type="text" placeholder="R1圓角" onfocus="this.placeholder=''" onblur="this.placeholder='R1圓角'" id="r1_fillet" class="test_a">
+            <input type="text" placeholder="A1角度" onfocus="this.placeholder=''" onblur="this.placeholder='A1角度'" id="a1_angle" class="test_a">
+            <input type="text" placeholder="D2直徑" onfocus="this.placeholder=''" onblur="this.placeholder='D2直徑'" id="d2_diameter" class="test_a">
+            <input type="text" placeholder="R2圓角" onfocus="this.placeholder=''" onblur="this.placeholder='R2圓角'" id="r2_fillet" class="test_a">
+            <input type="text" placeholder="刀鼻半徑" onfocus="this.placeholder=''" onblur="this.placeholder='刀鼻半徑'" id="nose_radius" class="test_a">
 
         </div>
     </div>
@@ -415,6 +415,16 @@ input_map = {
     "B9":"nose_radius",
 }
 
+input_map2 = {
+    "B3":"start_y1",
+    "B4":"d1_diameter1",
+    "B5":"r1_fillet1",
+    "B6":"a1_angle1",
+    "B7":"d2_diameter1",
+    "B8":"r2_fillet1",
+    "B9":"nose_radius1",
+}
+
 function round_to_3_decimal_places(data){
     return Math.round(parseFloat(data) * 1000) / 1000
 }
@@ -424,8 +434,8 @@ for (var i = 0; i < elements.length; i++) {
     elements[i].addEventListener('change', function (event) {
         Object.entries(input_map).forEach(([k, v]) => (window[k] = parseFloat(document.getElementById(v).value)));
 
-        // let E3 = document.getElementById("A_X1").innerHTML=round_to_3_decimal_places(2*B5/TAN(((90+B6)/2)*PI()/180))
-        let E3 = document.getElementById("A_X1").innerHTML=round_to_3_decimal_places(2*document.getElementsByClassName("r1_fillet").value/TAN(((90+document.getElementsByClassName("a1_angle").value)/2)*PI()/180))
+        let E3 = document.getElementById("A_X1").innerHTML=round_to_3_decimal_places(2*B5/TAN(((90+B6)/2)*PI()/180))
+        // let E3 = document.getElementById("A_X1").innerHTML=round_to_3_decimal_places(2*document.getElementsByClassName("r1_fillet").value/TAN(((90+document.getElementsByClassName("a1_angle").value)/2)*PI()/180))
         let G3 = document.getElementById("A_Y0").innerHTML=round_to_3_decimal_places(0)
         let E5 = document.getElementById("A_X2").innerHTML=round_to_3_decimal_places(2*(B5/TAN(((90+B6)/2)*PI()/180))*SIN(B6*PI()/180))
         let G5 = document.getElementById("A_Y1").innerHTML=round_to_3_decimal_places((B5/TAN(((90+B6)/2)*PI()/180))*COS(B6*PI()/180))
@@ -490,14 +500,23 @@ for (var i = 0; i < elements.length; i++) {
         image_write_text("c_img", c_img_val_array)
     });
 }
+
+    const elements1 = document.getElementsByClassName("test_a")
+    for (var i = 0; i < elements1.length; i++) {
+        elements1[i].addEventListener('change', function (event) {
+            Object.entries(input_map2).forEach(([k, v]) => (window[k] = parseFloat(document.getElementById(v).value)));
     // 監聽 input 元素的變化
-    var inputElement = document.querySelector(".image-container .input-container");
-        inputElement.addEventListener("input", function(event) {
+    // var inputElement = document.querySelector(".image-container .input-container");
+    //     inputElement.addEventListener("input", function(event) {
             var inputElement = event.target.className;
             var inputValue = event.target.value;
+
+            let E3 = document.getElementById("A_X1").innerHTML=round_to_3_decimal_places(2*B5/TAN(((90+B6)/2)*PI()/180))
+            let C15 = document.getElementById("B_1_nX").innerHTML=round_to_3_decimal_places(B4-E3)
             console.log("Input: ", inputElement);
             console.log("Input value:", inputValue);
             });
+    }
             
 </script>
 </html>
