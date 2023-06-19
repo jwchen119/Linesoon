@@ -13,23 +13,38 @@
             display: inline-block;
         }
         
-        .image-container input_1 {
-            position: absolute;
+        .image-container input {
+        	position: absolute;
             top: 10px;
             left: 10px;
         }
-
-        .image-container input_2 {
-            position: absolute;
+        
+        .image-container .input1 {
             top: 10px;
-            left: 50px;
+            left: 10px;
+            width: 20px;
+        }
+        
+        .image-container .input2 {
+            top: 20px;
+            left: 80px;
+            width: 20px;
+        }
+        
+        .image-container .input3 {
+            top: 50px;
+            left: 10px;
+            width: 20px;
+        }
     </style>
 
 <body>
     <div class="image-container">
         <img id="myImage" src="ls.png" alt="My Image">
-        <div
-            <input type="text">
+        <div class="input-container">
+            <input type="text" class="input1">
+            <input type="text" class="input2">
+            <input type="text" class="input3">
         </div>
     </div>
     <table>
@@ -450,11 +465,16 @@ for (var i = 0; i < elements.length; i++) {
         image_write_text("c_img", c_img_val_array)
     });
     // 監聽 input 元素的變化
-        var inputElement = document.querySelector(".image-container input");
-        inputElement.addEventListener("input", function(event) {
+        var inputElement1 = document.querySelector(".image-container .input1");
+        var inputElement2 = document.querySelector(".image-container .input2");
+        var inputElement3 = document.querySelector(".image-container .input3");
+        
+        inputElement1.addEventListener("input1", function(event) {
             var inputValue = event.target.value;
-            console.log("Input value:", inputValue);
-        });
+        inputElement2.addEventListener("input2", function(event) {
+            var inputValue = event.target.value;
+        inputElement3.addEventListener("input3", function(event) {
+            var inputValue = event.target.value;
 
 }
 
