@@ -7,8 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C_R角與刀鼻補正</title>
 </head>
+    <style>
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .image-container input {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+
 <body>
-    <img src="ls.png" alt="ls">
+    <div class="image-container">
+        <img id="myImage" src="path/to/your/image.jpg" alt="My Image">
+        <input type="text">
+    </div>
     <table>
         <thead>
             <tr>
@@ -426,6 +442,13 @@ for (var i = 0; i < elements.length; i++) {
         image_write_text("b_img", b_img_val_array)
         image_write_text("c_img", c_img_val_array)
     });
+    // 監聽 input 元素的變化
+        var inputElement = document.querySelector(".image-container input");
+        inputElement.addEventListener("input", function(event) {
+            var inputValue = event.target.value;
+            console.log("Input value:", inputValue);
+        });
+
 }
 
 
