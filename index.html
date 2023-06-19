@@ -508,13 +508,67 @@ for (var i = 0; i < elements.length; i++) {
     // 監聽 input 元素的變化
     // var inputElement = document.querySelector(".image-container .input-container");
     //     inputElement.addEventListener("input", function(event) {
-            var inputElement = event.target.className;
-            var inputValue = event.target.value;
+            // var inputElement = event.target.className;
+            // var inputValue = event.target.value;
 
             let E3 = document.getElementById("A_X1").innerHTML=round_to_3_decimal_places(2*B5/TAN(((90+B6)/2)*PI()/180))
-            let C15 = document.getElementById("B_1_nX").innerHTML=round_to_3_decimal_places(B4-E3)
-            console.log("Input: ", inputElement);
-            console.log("Input value:", inputValue);
+        // let E3 = document.getElementById("A_X1").innerHTML=round_to_3_decimal_places(2*document.getElementsByClassName("r1_fillet").value/TAN(((90+document.getElementsByClassName("a1_angle").value)/2)*PI()/180))
+        let G3 = document.getElementById("A_Y0").innerHTML=round_to_3_decimal_places(0)
+        let E5 = document.getElementById("A_X2").innerHTML=round_to_3_decimal_places(2*(B5/TAN(((90+B6)/2)*PI()/180))*SIN(B6*PI()/180))
+        let G5 = document.getElementById("A_Y1").innerHTML=round_to_3_decimal_places((B5/TAN(((90+B6)/2)*PI()/180))*COS(B6*PI()/180))
+        let E7 = document.getElementById("A_X3").innerHTML=round_to_3_decimal_places(2*(TAN((B6/2)*PI()/180)*B8)*SIN(B6*PI()/180))
+        let G7 = document.getElementById("A_Y2").innerHTML=round_to_3_decimal_places(TAN((B6/2)*PI()/180)*B8*COS(B6*PI()/180))
+        let E9 = document.getElementById("A_X0").innerHTML=round_to_3_decimal_places(0)
+        let G9 = document.getElementById("A_Y3").innerHTML=round_to_3_decimal_places(TAN((B6/2)*PI()/180)*B8)
+
+        let G13 = document.getElementById("B_arc").innerHTML=round_to_3_decimal_places(2*B9*SIN((B6/2)*PI()/180))
+        let I13 = document.getElementById("B_X_offset1").innerHTML=round_to_3_decimal_places(2*G13*SIN((B6/2)*PI()/180))
+        let K13 = document.getElementById("B_Z_offset1").innerHTML=round_to_3_decimal_places(B9-G13*COS((B6/2)*PI()/180))
+        let G14 = document.getElementById("B_contour_offset").innerHTML=round_to_3_decimal_places((B9/COS(45*PI()/180)*COS((45-B6)*PI()/180))-B9)
+        let I14 = document.getElementById("B_X_offset2").innerHTML=round_to_3_decimal_places(2*G14/COS(B6*PI()/180))
+        let K14 = document.getElementById("B_Z_offset2").innerHTML=round_to_3_decimal_places(G14/SIN(B6*PI()/180))
+
+        let C15 = document.getElementById("B_1_nX").innerHTML=round_to_3_decimal_places(B4-E3)
+        let E15 = document.getElementById("B_1_nZ").innerHTML=round_to_3_decimal_places(B3)
+        let G15 = document.getElementById("B_1_oX").innerHTML=round_to_3_decimal_places(B5==0 ? C15-I14: C15-(2*B9))
+        let I15 = document.getElementById("B_1_oZ").innerHTML=round_to_3_decimal_places(E15)
+        
+        let C16 = document.getElementById("B_2_nX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B4+E5)
+        let E16 = document.getElementById("B_2_nZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places((B3+G5)*-1)
+        let G16 = document.getElementById("B_2_oX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(C16-I13)
+        let I16 = document.getElementById("B_2_oZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places(E16-K13)
+        let K16 = document.getElementById("B_2_oR").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B5+B9)
+
+        let C17 = document.getElementById("B_3_nX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B7-E7)
+        let E17 = document.getElementById("B_3_nZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places(((((B7-B4)/2)/TAN(B6*PI()/180)-G7+B3)*-1))
+        let G17 = document.getElementById("B_3_oX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(C17-I13)
+        let I17 = document.getElementById("B_3_oZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places(E17-K13)
+
+        let C18 = document.getElementById("B_4_nX").innerHTML= 13
+        let E18 = document.getElementById("B_4_nZ").innerHTML=round_to_3_decimal_places(((((B7-B4)/2)/TAN(B6*PI()/180)+G9+B3)*-1))
+        let G18 = document.getElementById("B_4_oX").innerHTML=round_to_3_decimal_places(C18)
+        let I18 = document.getElementById("B_4_oZ").innerHTML=round_to_3_decimal_places(B5==0 ? E18-K14: E18-B9)
+        let K18 = document.getElementById("B_4_oR").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B8+B9)
+
+        let B23 = document.getElementById("C_D1").innerHTML=round_to_3_decimal_places(22.85)
+        let E23 = document.getElementById("C_D2").innerHTML=round_to_3_decimal_places(19.35)
+        let G23 = document.getElementById("C_arc").innerHTML=round_to_3_decimal_places(2*B9*SIN((B6/2)*PI()/180))
+        let I23 = document.getElementById("C_X_offset").innerHTML=round_to_3_decimal_places(2*G23*SIN((B6/2)*PI()/180))
+        let K23 = document.getElementById("C_Z_offset").innerHTML=round_to_3_decimal_places(B9+G23*COS((B6/2)*PI()/180))
+        let B24 = document.getElementById("C_L1").innerHTML=round_to_3_decimal_places(1.75)
+
+        let C25 = document.getElementById("C_1_nX").innerHTML=round_to_3_decimal_places(B23)
+        let E25 = document.getElementById("C_1_nZ").innerHTML=round_to_3_decimal_places((B24-G9)*-1)
+        let G25 = document.getElementById("C_1_oX").innerHTML=round_to_3_decimal_places(C25)
+        let I25 = document.getElementById("C_1_oZ").innerHTML=round_to_3_decimal_places(E25-B9)
+        
+        let C26 = document.getElementById("C_2_nX").innerHTML=round_to_3_decimal_places(B23-E7)
+        let E26 = document.getElementById("C_2_nZ").innerHTML=round_to_3_decimal_places((B24+G7)*-1)
+        let G26 = document.getElementById("C_2_oX").innerHTML=round_to_3_decimal_places(C26-I13)
+        let I26 = document.getElementById("C_2_oZ").innerHTML=round_to_3_decimal_places(E26-K23)
+        let K26 = document.getElementById("C_2_oR").innerHTML=round_to_3_decimal_places(B5+B9)
+            // console.log("Input: ", inputElement);
+            // console.log("Input value:", inputValue);
             });
     }
             
