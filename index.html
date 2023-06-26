@@ -1,575 +1,507 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C_R角與刀鼻補正</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C_R角與刀鼻補正</title>
 </head>
-    <style>
-        .image-container {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .image-container input {
-        	position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-        
-        .image-container #start_y1 {
-            left: 547px;
-            top: 586px;
-            width: 60px;
-        }
-        
-        .image-container #d1_diameter1 {
-            left: 70px;
-            top: 333px;
-            width: 60px;
-        }
-        
-        .image-container #r1_fillet1 {
-            left: 263px;
-            top: 230px;
-            width: 60px;
-        }
-        .image-container #a1_angle1 {
-            left: 300px;
-            top: 420px;
-            width: 60px;
-        }
-        .image-container #d2_diameter1 {
-            left: 748px;
-            top: 467px;
-            width: 60px;
-        }
-        .image-container #r2_fillet1 {
-            left: 489px;
-            top: 383px;
-            width: 60px;
-        }
-        .image-container #nose_radius1 {
-            left: 513px;
-            top: 149px;
-            width: 60px;
-        }
-    </style>
+
+<style>
+  /* #canvas-container {
+    position: relative;
+  }
+
+  #my-input {
+    position: absolute;
+    top: var(--inputT);
+    left: var(--inputL);
+    width: 30px;
+  } */
+
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .image-container input {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
+  .image-container #start_y {
+    left: 228px;
+    top: 285px;
+    width: 60px;
+  }
+
+  .image-container #d1_diameter {
+    left: 300px;
+    top: 240px;
+    width: 60px;
+  }
+
+  .image-container #r1_fillet {
+    left: 196px;
+    top: 208px;
+    width: 60px;
+  }
+
+  .image-container #a1_angle {
+    left: 130px;
+    top: 224px;
+    width: 60px;
+  }
+
+  .image-container #d2_diameter {
+    left: 30px;
+    top: 183px;
+    width: 60px;
+  }
+
+  .image-container #r2_fillet {
+    left: 95px;
+    top: 120px;
+    width: 60px;
+  }
+
+  .image-container #nose_radius {
+    left: 280px;
+    top: 93px;
+    width: 60px;
+  }
+
+  .image-container #L1 {
+    left: 172px;
+    top: 18px;
+    width: 60px;
+  }
+
+  .t_right {
+    text-align: right
+  }
+
+  .t_left {
+    text-align: left
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+
+  th,
+  td {
+    min-width: 60px;
+  }
+</style>
 
 <body>
-    <table>
-        <thead>
-            <tr>
-                <th colspan="7">無補刀鼻-C&R角尺寸</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td colspan="2">第一圓&倒角</td>
-                <td></td>
-                <td colspan="2">第一點差值</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>起始Y</td>
-                <td><input type="number" name="" id="start_y" style="width:60px" class="input_val"></td>
-                <td></td>
-                <td class="t_right">X1:</td>
-                <td id="A_X1"></td>
-                <td class="t_right">Y0:</td>
-                <td id="A_Y0"></td>
-            </tr>
-            <tr>
-                <td>D1直徑</td>
-                <td><input type="number" name="" id="d1_diameter" style="width:60px" class="input_val"></td>
-                <td></td>
-                <td colspan="2">第二點差值</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>R1圓角</td>
-                <td><input type="number" name="" id="r1_fillet" style="width:60px" class="input_val"></td>
-                <td></td>
-                <td class="t_right">X2:</td>
-                <td id="A_X2"></td>
-                <td class="t_right">Y1:</td>
-                <td id="A_Y1"></td>
-            </tr>
-            <tr>
-                <td>A1角度</td>
-                <td><input type="number" name="" id="a1_angle" style="width:60px" class="input_val"></td>
-                <td></td>
-                <td colspan="2">第三點差值</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>D2直徑</td>
-                <td><input type="number" name="" id="d2_diameter" style="width:60px" class="input_val"></td>
-                <td></td>
-                <td class="t_right">X3:</td>
-                <td id="A_X3"></td>
-                <td class="t_right">Y2:</td>
-                <td id="A_Y2"></td>
-            </tr>
-            <tr>
-                <td>R2圓角</td>
-                <td><input type="number" name="" id="r2_fillet" style="width:60px" class="input_val"></td>
-                <td></td>
-                <td colspan="2">第四點差值</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>刀鼻半徑</td>
-                <td><input type="number" name="" id="nose_radius" style="width:60px" class="input_val"></td>
-                <td></td>
-                <td class="t_right">X0:</td>
-                <td id="A_X0"></td>
-                <td class="t_right">Y3:</td>
-                <td id="A_Y3"></td>
-            </tr>
-        </tbody>
-    </table>
-    <table>
-        <thead>
-            <tr>
-                <th colspan="11">正角車削外徑</th>
-            </tr>
-            <tr>
-                <th colspan="5">無補刀鼻半徑</th>
-                <th colspan="6">補刀鼻半徑</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="t_right">弦長</td>
-                <td id="B_arc"></td>
-                <td class="t_right">X偏值</td>
-                <td id="B_X_offset1"></td>
-                <td class="t_right">Z偏值</td>
-                <td id="B_Z_offset1"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="t_right">輪廓偏移</td>
-                <td id="B_contour_offset"></td>
-                <td class="t_right">X偏值</td>
-                <td id="B_X_offset2"></td>
-                <td class="t_right">Z偏值</td>
-                <td id="B_Z_offset2"></td>
-            </tr>
-            <tr>
-                <td>第一點:</td>
-                <td class="t_right">X:</td>
-                <td id="B_1_nX"></td>
-                <td class="t_right">Z:</td>
-                <td id="B_1_nZ"></td>
-                <td class="t_right">X:</td>
-                <td id="B_1_oX"></td>
-                <td class="t_right">Z:</td>
-                <td id="B_1_oZ"></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>第二點:</td>
-                <td class="t_right">X:</td>
-                <td id="B_2_nX"></td>
-                <td class="t_right">Z:</td>
-                <td id="B_2_nZ"></td>
-                <td class="t_right">X:</td>
-                <td id="B_2_oX"></td>
-                <td class="t_right">Z:</td>
-                <td id="B_2_oZ"></td>
-                <td class="t_right">R:</td>
-                <td id="B_2_oR"></td>
-            </tr>
-            <tr>
-                <td>第三點:</td>
-                <td class="t_right">X:</td>
-                <td id="B_3_nX"></td>
-                <td class="t_right">Z:</td>
-                <td id="B_3_nZ"></td>
-                <td class="t_right">X:</td>
-                <td id="B_3_oX"></td>
-                <td class="t_right">Z:</td>
-                <td id="B_3_oZ"></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>第四點:</td>
-                <td class="t_right">X:</td>
-                <td id="B_4_nX"></td>
-                <td class="t_right">Z:</td>
-                <td id="B_4_nZ"></td>
-                <td class="t_right">X:</td>
-                <td id="B_4_oX"></td>
-                <td class="t_right">Z:</td>
-                <td id="B_4_oZ"></td>
-                <td class="t_right">R:</td>
-                <td id="B_4_oR"></td>
-            </tr>
-        </tbody>
-    </table>
-    <table>
-        <thead>
-            <tr>
-                <th colspan="11">負角切削外徑</th>
-            </tr>
-            <tr>
-                <th colspan="5">無補刀鼻半徑</th>
-                <th colspan="6">補刀鼻半徑</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>D1直徑</td>
-                <td id="C_D1"></td>
-                <td></td>
-                <td>D2直徑</td>
-                <td id="C_D2"></td>
-                <td class="t_right">弦長</td>
-                <td id="C_arc"></td>
-                <td class="t_right">X偏值</td>
-                <td id="C_X_offset"></td>
-                <td class="t_right">Z偏值</td>
-                <td id="C_Z_offset"></td>
-            </tr>
-            <tr>
-                <td>L1</td>
-                <td id="C_L1"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>第一點:</td>
-                <td class="t_right">X:</td>
-                <td id="C_1_nX"></td>
-                <td class="t_right">Z:</td>
-                <td id="C_1_nZ"></td>
-                <td class="t_right">X:</td>
-                <td id="C_1_oX"></td>
-                <td class="t_right">Z:</td>
-                <td id="C_1_oZ"></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>第二點:</td>
-                <td class="t_right">X:</td>
-                <td id="C_2_nX"></td>
-                <td class="t_right">Z:</td>
-                <td id="C_2_nZ"></td>
-                <td class="t_right">X:</td>
-                <td id="C_2_oX"></td>
-                <td class="t_right">Z:</td>
-                <td id="C_2_oZ"></td>
-                <td class="t_right">R:</td>
-                <td id="C_2_oR"></td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="image-container">
-        <img id="myImage" src="p1.png" alt="My Image">
-        <div class="input-container">
-            <input type="text" placeholder="初始Y" onfocus="this.placeholder=''" onblur="this.placeholder='初始Y'" id="start_y1" class="test_a">
-            <input type="text" placeholder="D1直徑" onfocus="this.placeholder=''" onblur="this.placeholder='D1直徑'" id="d1_diameter1" class="test_a">
-            <input type="text" placeholder="R1圓角" onfocus="this.placeholder=''" onblur="this.placeholder='R1圓角'" id="r1_fillet1" class="test_a">
-            <input type="text" placeholder="A1角度" onfocus="this.placeholder=''" onblur="this.placeholder='A1角度'" id="a1_angle1" class="test_a">
-            <input type="text" placeholder="D2直徑" onfocus="this.placeholder=''" onblur="this.placeholder='D2直徑'" id="d2_diameter1" class="test_a">
-            <input type="text" placeholder="R2圓角" onfocus="this.placeholder=''" onblur="this.placeholder='R2圓角'" id="r2_fillet1" class="test_a">
-            <input type="text" placeholder="刀鼻半徑" onfocus="this.placeholder=''" onblur="this.placeholder='刀鼻半徑'" id="nose_radius1" class="test_a">
+  <table>
+    <thead>
+      <tr>
+        <th colspan="7">無補刀鼻-C&R角尺寸</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="2">第一圓&倒角</td>
+        <td></td>
+        <td colspan="2">第一點差值</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>起始Y</td>
+        <td><input type="number" name="" id="start_y2" style="width:60px" class="input_val"></td>
+        <td></td>
+        <td class="t_right">X1:</td>
+        <td id="A_X1"></td>
+        <td class="t_right">Y0:</td>
+        <td id="A_Y0"></td>
+      </tr>
+      <tr>
+        <td>D1直徑</td>
+        <td><input type="number" name="" id="d1_diameter2" style="width:60px" class="input_val"></td>
+        <td></td>
+        <td colspan="2">第二點差值</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>R1圓角</td>
+        <td><input type="number" name="" id="r1_fillet2" style="width:60px" class="input_val"></td>
+        <td></td>
+        <td class="t_right">X2:</td>
+        <td id="A_X2"></td>
+        <td class="t_right">Y1:</td>
+        <td id="A_Y1"></td>
+      </tr>
+      <tr>
+        <td>A1角度</td>
+        <td><input type="number" name="" id="a1_angle2" style="width:60px" class="input_val"></td>
+        <td></td>
+        <td colspan="2">第三點差值</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>D2直徑</td>
+        <td><input type="number" name="" id="d2_diameter2" style="width:60px" class="input_val"></td>
+        <td></td>
+        <td class="t_right">X3:</td>
+        <td id="A_X3"></td>
+        <td class="t_right">Y2:</td>
+        <td id="A_Y2"></td>
+      </tr>
+      <tr>
+        <td>R2圓角</td>
+        <td><input type="number" name="" id="r2_fillet2" style="width:60px" class="input_val"></td>
+        <td></td>
+        <td colspan="2">第四點差值</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>刀鼻半徑</td>
+        <td><input type="number" name="" id="nose_radius2" style="width:60px" class="input_val"></td>
+        <td></td>
+        <td class="t_right">X0:</td>
+        <td id="A_X0"></td>
+        <td class="t_right">Y3:</td>
+        <td id="A_Y3"></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="11">正角車削外徑</th>
+      </tr>
+      <tr>
+        <th colspan="5">無補刀鼻半徑</th>
+        <th colspan="6">補刀鼻半徑</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="t_right">弦長</td>
+        <td id="B_arc"></td>
+        <td class="t_right">X偏值</td>
+        <td id="B_X_offset1"></td>
+        <td class="t_right">Z偏值</td>
+        <td id="B_Z_offset1"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="t_right">輪廓偏移</td>
+        <td id="B_contour_offset"></td>
+        <td class="t_right">X偏值</td>
+        <td id="B_X_offset2"></td>
+        <td class="t_right">Z偏值</td>
+        <td id="B_Z_offset2"></td>
+      </tr>
+      <tr>
+        <td>第一點:</td>
+        <td class="t_right">X:</td>
+        <td id="B_1_nX"></td>
+        <td class="t_right">Z:</td>
+        <td id="B_1_nZ"></td>
+        <td class="t_right">X:</td>
+        <td id="B_1_oX"></td>
+        <td class="t_right">Z:</td>
+        <td id="B_1_oZ"></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>第二點:</td>
+        <td class="t_right">X:</td>
+        <td id="B_2_nX"></td>
+        <td class="t_right">Z:</td>
+        <td id="B_2_nZ"></td>
+        <td class="t_right">X:</td>
+        <td id="B_2_oX"></td>
+        <td class="t_right">Z:</td>
+        <td id="B_2_oZ"></td>
+        <td class="t_right">R:</td>
+        <td id="B_2_oR"></td>
+      </tr>
+      <tr>
+        <td>第三點:</td>
+        <td class="t_right">X:</td>
+        <td id="B_3_nX"></td>
+        <td class="t_right">Z:</td>
+        <td id="B_3_nZ"></td>
+        <td class="t_right">X:</td>
+        <td id="B_3_oX"></td>
+        <td class="t_right">Z:</td>
+        <td id="B_3_oZ"></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>第四點:</td>
+        <td class="t_right">X:</td>
+        <td id="B_4_nX"></td>
+        <td class="t_right">Z:</td>
+        <td id="B_4_nZ"></td>
+        <td class="t_right">X:</td>
+        <td id="B_4_oX"></td>
+        <td class="t_right">Z:</td>
+        <td id="B_4_oZ"></td>
+        <td class="t_right">R:</td>
+        <td id="B_4_oR"></td>
+      </tr>
+    </tbody>
+  </table>
 
-        </div>
+  <div class="image-container">
+    <img id="myImage" src="positive_cut2.png" alt="My Image">
+    <div class="input-container">
+      <input type="number" placeholder="初始Z" value="0" onfocus="this.placeholder=''" onblur="this.placeholder='初始Z'"
+        id="start_y" class="initCondition">
+      <input type="number" placeholder="D1直徑" value="5" onfocus="this.placeholder=''" onblur="this.placeholder='D1直徑'"
+        id="d1_diameter" class="initCondition">
+      <input type="number" placeholder="R1圓角" value="2" onfocus="this.placeholder=''" onblur="this.placeholder='R1圓角'"
+        id="r1_fillet" class="initCondition">
+      <input type="number" placeholder="A1角度" value="30" onfocus="this.placeholder=''" onblur="this.placeholder='A1角度'"
+        id="a1_angle" class="initCondition">
+      <input type="number" placeholder="D2直徑" value="13" onfocus="this.placeholder=''" onblur="this.placeholder='D2直徑'"
+        id="d2_diameter" class="initCondition">
+      <input type="number" placeholder="R2圓角" value="2" onfocus="this.placeholder=''" onblur="this.placeholder='R2圓角'"
+        id="r2_fillet" class="initCondition">
+      <input type="number" placeholder="刀鼻半徑" value="0.4" onfocus="this.placeholder=''" onblur="this.placeholder='刀鼻半徑'"
+        id="nose_radius" class="initCondition">
+      <input type="number" placeholder="L1" onfocus="this.placeholder=''" onblur="this.placeholder='L1'" id="L1_"
+        class="initCondition">
+
     </div>
-    <img src="" alt="" id="b_img">
-    <img src="" alt="" id="c_img">
+  </div>
+
+  <div id="canvas-container">
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <!-- <input type="text" id="my-input"> -->
+  </div>
 </body>
-<style>
-.t_right {
-    text-align:right
-}
-.t_left {
-    text-align:left
-}
-table, th, td {
-  border: 1px solid black;
-}
-th, td {
-    min-width: 60px;
-}
-</style>
+
 <script>
 
-// 找圖片位置
-// https://www.programminghead.com/Projects/find-coordinates-of-image-online.html
-// 轉base64
-// https://www.toolnb.com/tools-lang-zh-TW/ImageToBase64.html
-
-// 圖片 Base64 字串
-// var a_base64Image = "data:image/png;base64,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"; 
-var b_base64Image = "data:image/png;base64,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"
-var c_base64Image = "data:image/png;base64,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"
-
-const image_info_map ={
-    // a_img :{
-    //     image_base64: a_base64Image,
-    //     D2:[84,324],  // B7
-    //     R2:[264,251], // B8
-    //     A1:[297,425], // B6
-    //     R1:[488,397], // B5
-    //     D1:[752,463], // B4
-    // },
-    b_img:{
-        image_base64: b_base64Image,
-        val_1:[518,269], // C15, E15
-        val_2:[485,152], // C16, E16
-        val_3:[421,99], // C17, E17
-        val_4:[221,65], // C18, E18
-    },
-    c_img:{
-        image_base64: c_base64Image,
-        val_1:[255,76], // C25, E25 
-        val_2:[225,144], // C26, E26
-        val_3:[146,182], //
-        val_4:[130,225], //
-    }
-}
-
-// 當圖片加載完成後執行回調函式
-function image_write_text(image_id, a_img_val_array) {
-
-    // 創建新的圖片元素
-    var image = new Image();
-    image.src = image_info_map[image_id].image_base64;
-    // 當圖片加載完成後執行回調函式
-    image.onload = function() {
-    // 創建 canvas 元素
-        var canvas = document.createElement('canvas');
-        canvas.width = image.width;
-        canvas.height = image.height;
-
-        // 獲取 2D 上下文
-        var context = canvas.getContext('2d');
-
-        // 在 canvas 上繪製圖片
-        context.drawImage(image, 0, 0);
-
-        // 寫上文字
-        context.font = '20px Arial';
-        context.fillStyle = 'black';
-        a_img_val_array.forEach(([write_variable, text_val]) => {
-            let x = image_info_map[image_id][write_variable][0]
-            let y = image_info_map[image_id][write_variable][1]
-            context.fillText(text_val, x, y);
-        });
-
-        // 將 canvas 轉換為圖片 Base64 字串
-        var modifiedImage = canvas.toDataURL();
-
-        // 將圖片顯示在頁面上
-        document.getElementById(image_id).src=modifiedImage
-    }
-};
-
-
-
-// 計算區塊
-function PI(){
+  function PI() {
     return Math.PI
-}
+  }
 
-const TAN = Math.tan
-const COS = Math.cos
-const SIN = Math.sin
+  const TAN = Math.tan
+  const COS = Math.cos
+  const SIN = Math.sin
 
-input_map = {
-    "B3":"start_y",
-    "B4":"d1_diameter",
-    "B5":"r1_fillet",
-    "B6":"a1_angle",
-    "B7":"d2_diameter",
-    "B8":"r2_fillet",
-    "B9":"nose_radius",
-}
-
-input_map2 = {
-    "B3":"start_y1",
-    "B4":"d1_diameter1",
-    "B5":"r1_fillet1",
-    "B6":"a1_angle1",
-    "B7":"d2_diameter1",
-    "B8":"r2_fillet1",
-    "B9":"nose_radius1",
-}
-
-function round_to_3_decimal_places(data){
+  function round_to_3_decimal_places(data) {
     return Math.round(parseFloat(data) * 1000) / 1000
-}
+  }
 
-const elements = document.getElementsByClassName("input_val")
-for (var i = 0; i < elements.length; i++) {
-    elements[i].addEventListener('change', function (event) {
-        Object.entries(input_map).forEach(([k, v]) => (window[k] = parseFloat(document.getElementById(v).value)));
+  function draw() {
+    var canvas = document.getElementById("canvas");
+    if (canvas.getContext) {
+      var ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var mgft = 40;  //放大倍率
+      var mgft2 = 20;
+      var D1 = document.getElementById("d1_diameter").value;
+      // var D1 = 5;
+      var D2 = document.getElementById("d2_diameter").value;
+      var angleE = document.getElementById("a1_angle").value;
+      // var L1 = 6.928;
+      var L1 = (((D2 - D1) / 2) / TAN(angleE * PI() / 180));
+      console.log(L1);
+      var BlSiX = 400;
+      var BlSiY = 400;
+      lineProfile(ctx, mgft, BlSiX, BlSiY, D1, D2, L1);
+      roundProfile(ctx, mgft, BlSiX, BlSiY,
+        Math.abs(document.getElementById("B_1_nX").innerHTML),
+        Math.abs(document.getElementById("B_1_nZ").innerHTML),
+        Math.abs(document.getElementById("B_2_nX").innerHTML),
+        Math.abs(document.getElementById("B_2_nZ").innerHTML),
+        Math.abs(document.getElementById("B_3_nX").innerHTML),
+        Math.abs(document.getElementById("B_3_nZ").innerHTML),
+        Math.abs(document.getElementById("B_4_nX").innerHTML),
+        Math.abs(document.getElementById("B_4_nZ").innerHTML), D1, L1);
+      console.log(document.getElementById("B_1_nX").innerHTML);
+      drawArrow(ctx, BlSiX + 1.826 * mgft2, BlSiY - 2.691 / 2 * mgft - 2.38 * mgft2, BlSiX + 0 * mgft, BlSiY - 2.691 / 2 * mgft, 2, 'black')
+      drawArrow(ctx, BlSiX - 1 * mgft + 1.826 * mgft2, BlSiY - 6.155 / 2 * mgft - 2.38 * mgft2, BlSiX - 1 * mgft, BlSiY - 6.155 / 2 * mgft, 2, 'black')
+      drawArrow(ctx, BlSiX - 6.464 * mgft + 1.826 * mgft2, BlSiY - 12.464 / 2 * mgft - 2.38 * mgft2, BlSiX - 6.464 * mgft, BlSiY - 12.464 / 2 * mgft, 2, 'black')
+      drawArrow(ctx, BlSiX - 7.464 * mgft + 2.435 * mgft2, BlSiY - 13 / 2 * mgft - 3.173 * mgft2, BlSiX - 7.464 * mgft, BlSiY - 13 / 2 * mgft, 2, 'black')
 
-        let E3 = document.getElementById("A_X1").innerHTML=round_to_3_decimal_places(2*B5/TAN(((90+B6)/2)*PI()/180))
-        // let E3 = document.getElementById("A_X1").innerHTML=round_to_3_decimal_places(2*document.getElementsByClassName("r1_fillet").value/TAN(((90+document.getElementsByClassName("a1_angle").value)/2)*PI()/180))
-        let G3 = document.getElementById("A_Y0").innerHTML=round_to_3_decimal_places(0)
-        let E5 = document.getElementById("A_X2").innerHTML=round_to_3_decimal_places(2*(B5/TAN(((90+B6)/2)*PI()/180))*SIN(B6*PI()/180))
-        let G5 = document.getElementById("A_Y1").innerHTML=round_to_3_decimal_places((B5/TAN(((90+B6)/2)*PI()/180))*COS(B6*PI()/180))
-        let E7 = document.getElementById("A_X3").innerHTML=round_to_3_decimal_places(2*(TAN((B6/2)*PI()/180)*B8)*SIN(B6*PI()/180))
-        let G7 = document.getElementById("A_Y2").innerHTML=round_to_3_decimal_places(TAN((B6/2)*PI()/180)*B8*COS(B6*PI()/180))
-        let E9 = document.getElementById("A_X0").innerHTML=round_to_3_decimal_places(0)
-        let G9 = document.getElementById("A_Y3").innerHTML=round_to_3_decimal_places(TAN((B6/2)*PI()/180)*B8)
-
-        let G13 = document.getElementById("B_arc").innerHTML=round_to_3_decimal_places(2*B9*SIN((B6/2)*PI()/180))
-        let I13 = document.getElementById("B_X_offset1").innerHTML=round_to_3_decimal_places(2*G13*SIN((B6/2)*PI()/180))
-        let K13 = document.getElementById("B_Z_offset1").innerHTML=round_to_3_decimal_places(B9-G13*COS((B6/2)*PI()/180))
-        let G14 = document.getElementById("B_contour_offset").innerHTML=round_to_3_decimal_places((B9/COS(45*PI()/180)*COS((45-B6)*PI()/180))-B9)
-        let I14 = document.getElementById("B_X_offset2").innerHTML=round_to_3_decimal_places(2*G14/COS(B6*PI()/180))
-        let K14 = document.getElementById("B_Z_offset2").innerHTML=round_to_3_decimal_places(G14/SIN(B6*PI()/180))
-
-        let C15 = document.getElementById("B_1_nX").innerHTML=round_to_3_decimal_places(B4-E3)
-        let E15 = document.getElementById("B_1_nZ").innerHTML=round_to_3_decimal_places(B3)
-        let G15 = document.getElementById("B_1_oX").innerHTML=round_to_3_decimal_places(B5==0 ? C15-I14: C15-(2*B9))
-        let I15 = document.getElementById("B_1_oZ").innerHTML=round_to_3_decimal_places(E15)
-        
-        let C16 = document.getElementById("B_2_nX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B4+E5)
-        let E16 = document.getElementById("B_2_nZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places((B3+G5)*-1)
-        let G16 = document.getElementById("B_2_oX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(C16-I13)
-        let I16 = document.getElementById("B_2_oZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places(E16-K13)
-        let K16 = document.getElementById("B_2_oR").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B5+B9)
-
-        let C17 = document.getElementById("B_3_nX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B7-E7)
-        let E17 = document.getElementById("B_3_nZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places(((((B7-B4)/2)/TAN(B6*PI()/180)-G7+B3)*-1))
-        let G17 = document.getElementById("B_3_oX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(C17-I13)
-        let I17 = document.getElementById("B_3_oZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places(E17-K13)
-
-        let C18 = document.getElementById("B_4_nX").innerHTML= 13
-        let E18 = document.getElementById("B_4_nZ").innerHTML=round_to_3_decimal_places(((((B7-B4)/2)/TAN(B6*PI()/180)+G9+B3)*-1))
-        let G18 = document.getElementById("B_4_oX").innerHTML=round_to_3_decimal_places(C18)
-        let I18 = document.getElementById("B_4_oZ").innerHTML=round_to_3_decimal_places(B5==0 ? E18-K14: E18-B9)
-        let K18 = document.getElementById("B_4_oR").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B8+B9)
-
-        let B23 = document.getElementById("C_D1").innerHTML=round_to_3_decimal_places(22.85)
-        let E23 = document.getElementById("C_D2").innerHTML=round_to_3_decimal_places(19.35)
-        let G23 = document.getElementById("C_arc").innerHTML=round_to_3_decimal_places(2*B9*SIN((B6/2)*PI()/180))
-        let I23 = document.getElementById("C_X_offset").innerHTML=round_to_3_decimal_places(2*G23*SIN((B6/2)*PI()/180))
-        let K23 = document.getElementById("C_Z_offset").innerHTML=round_to_3_decimal_places(B9+G23*COS((B6/2)*PI()/180))
-        let B24 = document.getElementById("C_L1").innerHTML=round_to_3_decimal_places(1.75)
-
-        let C25 = document.getElementById("C_1_nX").innerHTML=round_to_3_decimal_places(B23)
-        let E25 = document.getElementById("C_1_nZ").innerHTML=round_to_3_decimal_places((B24-G9)*-1)
-        let G25 = document.getElementById("C_1_oX").innerHTML=round_to_3_decimal_places(C25)
-        let I25 = document.getElementById("C_1_oZ").innerHTML=round_to_3_decimal_places(E25-B9)
-        
-        let C26 = document.getElementById("C_2_nX").innerHTML=round_to_3_decimal_places(B23-E7)
-        let E26 = document.getElementById("C_2_nZ").innerHTML=round_to_3_decimal_places((B24+G7)*-1)
-        let G26 = document.getElementById("C_2_oX").innerHTML=round_to_3_decimal_places(C26-I13)
-        let I26 = document.getElementById("C_2_oZ").innerHTML=round_to_3_decimal_places(E26-K23)
-        let K26 = document.getElementById("C_2_oR").innerHTML=round_to_3_decimal_places(B5+B9)
-
-        // a_img_val_array = [["D2",B7],["R2",B8],["A1",B6],["R1",B5],["D1",B4]]
-        b_img_val_array = [["val_1",`(${C15},${E15})`],["val_2",`(${C16},${E16})`],["val_3",`(${C17},${E17})`],["val_4",`(${C18},${E18})`]]
-        c_img_val_array = [["val_1",`(${C25},${E25})`],["val_2",`(${C26},${E26})`]]
-
-        // image_write_text("a_img", a_img_val_array)
-        image_write_text("b_img", b_img_val_array)
-        image_write_text("c_img", c_img_val_array)
-    });
-}
-
-const elements1 = document.getElementsByClassName("test_a")
-for (var i = 0; i < elements1.length; i++) {
-    elements1[i].addEventListener('change', function (event) {
-        Object.entries(input_map2).forEach(([k, v]) => (window[k] = parseFloat(document.getElementById(v).value)));
-        let E3 = document.getElementById("A_X1").innerHTML=round_to_3_decimal_places(2*B5/TAN(((90+B6)/2)*PI()/180))
-        let G3 = document.getElementById("A_Y0").innerHTML=round_to_3_decimal_places(0)
-        let E5 = document.getElementById("A_X2").innerHTML=round_to_3_decimal_places(2*(B5/TAN(((90+B6)/2)*PI()/180))*SIN(B6*PI()/180))
-        let G5 = document.getElementById("A_Y1").innerHTML=round_to_3_decimal_places((B5/TAN(((90+B6)/2)*PI()/180))*COS(B6*PI()/180))
-        let E7 = document.getElementById("A_X3").innerHTML=round_to_3_decimal_places(2*(TAN((B6/2)*PI()/180)*B8)*SIN(B6*PI()/180))
-        let G7 = document.getElementById("A_Y2").innerHTML=round_to_3_decimal_places(TAN((B6/2)*PI()/180)*B8*COS(B6*PI()/180))
-        let E9 = document.getElementById("A_X0").innerHTML=round_to_3_decimal_places(0)
-        let G9 = document.getElementById("A_Y3").innerHTML=round_to_3_decimal_places(TAN((B6/2)*PI()/180)*B8)
-
-        let G13 = document.getElementById("B_arc").innerHTML=round_to_3_decimal_places(2*B9*SIN((B6/2)*PI()/180))
-        let I13 = document.getElementById("B_X_offset1").innerHTML=round_to_3_decimal_places(2*G13*SIN((B6/2)*PI()/180))
-        let K13 = document.getElementById("B_Z_offset1").innerHTML=round_to_3_decimal_places(B9-G13*COS((B6/2)*PI()/180))
-        let G14 = document.getElementById("B_contour_offset").innerHTML=round_to_3_decimal_places((B9/COS(45*PI()/180)*COS((45-B6)*PI()/180))-B9)
-        let I14 = document.getElementById("B_X_offset2").innerHTML=round_to_3_decimal_places(2*G14/COS(B6*PI()/180))
-        let K14 = document.getElementById("B_Z_offset2").innerHTML=round_to_3_decimal_places(G14/SIN(B6*PI()/180))
-
-        let C15 = document.getElementById("B_1_nX").innerHTML=round_to_3_decimal_places(B4-E3)
-        let E15 = document.getElementById("B_1_nZ").innerHTML=round_to_3_decimal_places(B3)
-        let G15 = document.getElementById("B_1_oX").innerHTML=round_to_3_decimal_places(B5==0 ? C15-I14: C15-(2*B9))
-        let I15 = document.getElementById("B_1_oZ").innerHTML=round_to_3_decimal_places(E15)
-        
-        let C16 = document.getElementById("B_2_nX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B4+E5)
-        let E16 = document.getElementById("B_2_nZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places((B3+G5)*-1)
-        let G16 = document.getElementById("B_2_oX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(C16-I13)
-        let I16 = document.getElementById("B_2_oZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places(E16-K13)
-        let K16 = document.getElementById("B_2_oR").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B5+B9)
-
-        let C17 = document.getElementById("B_3_nX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B7-E7)
-        let E17 = document.getElementById("B_3_nZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places(((((B7-B4)/2)/TAN(B6*PI()/180)-G7+B3)*-1))
-        let G17 = document.getElementById("B_3_oX").innerHTML= B5==0 ? "無": round_to_3_decimal_places(C17-I13)
-        let I17 = document.getElementById("B_3_oZ").innerHTML= B5==0 ? "無": round_to_3_decimal_places(E17-K13)
-
-        let C18 = document.getElementById("B_4_nX").innerHTML= 13
-        let E18 = document.getElementById("B_4_nZ").innerHTML=round_to_3_decimal_places(((((B7-B4)/2)/TAN(B6*PI()/180)+G9+B3)*-1))
-        let G18 = document.getElementById("B_4_oX").innerHTML=round_to_3_decimal_places(C18)
-        let I18 = document.getElementById("B_4_oZ").innerHTML=round_to_3_decimal_places(B5==0 ? E18-K14: E18-B9)
-        let K18 = document.getElementById("B_4_oR").innerHTML= B5==0 ? "無": round_to_3_decimal_places(B8+B9)
-
-        let B23 = document.getElementById("C_D1").innerHTML=round_to_3_decimal_places(22.85)
-        let E23 = document.getElementById("C_D2").innerHTML=round_to_3_decimal_places(19.35)
-        let G23 = document.getElementById("C_arc").innerHTML=round_to_3_decimal_places(2*B9*SIN((B6/2)*PI()/180))
-        let I23 = document.getElementById("C_X_offset").innerHTML=round_to_3_decimal_places(2*G23*SIN((B6/2)*PI()/180))
-        let K23 = document.getElementById("C_Z_offset").innerHTML=round_to_3_decimal_places(B9+G23*COS((B6/2)*PI()/180))
-        let B24 = document.getElementById("C_L1").innerHTML=round_to_3_decimal_places(1.75)
-
-        let C25 = document.getElementById("C_1_nX").innerHTML=round_to_3_decimal_places(B23)
-        let E25 = document.getElementById("C_1_nZ").innerHTML=round_to_3_decimal_places((B24-G9)*-1)
-        let G25 = document.getElementById("C_1_oX").innerHTML=round_to_3_decimal_places(C25)
-        let I25 = document.getElementById("C_1_oZ").innerHTML=round_to_3_decimal_places(E25-B9)
-        
-        let C26 = document.getElementById("C_2_nX").innerHTML=round_to_3_decimal_places(B23-E7)
-        let E26 = document.getElementById("C_2_nZ").innerHTML=round_to_3_decimal_places((B24+G7)*-1)
-        let G26 = document.getElementById("C_2_oX").innerHTML=round_to_3_decimal_places(C26-I13)
-        let I26 = document.getElementById("C_2_oZ").innerHTML=round_to_3_decimal_places(E26-K23)
-        let K26 = document.getElementById("C_2_oR").innerHTML=round_to_3_decimal_places(B5+B9)
-            // console.log("Input: ", inputElement);
-            // console.log("Input value:", inputValue);
-
-        b_img_val_array = [["val_1",`(${C15},${E15})`],["val_2",`(${C16},${E16})`],["val_3",`(${C17},${E17})`],["val_4",`(${C18},${E18})`]]
-        c_img_val_array = [["val_1",`(${C25},${E25})`],["val_2",`(${C26},${E26})`]]
-        
-        image_write_text("b_img", b_img_val_array)
-        image_write_text("c_img", c_img_val_array)
-        });
+      // roundProfile(ctx, mgft, BlSiX, BlSiY, 2.691, 0, 6.155, 1, 12.464, 6.464, 13, 7.464);
+      // drawArrow(ctx, BlSiX + 1.826 * mgft2, BlSiY - 2.691 / 2 * mgft - 2.38 * mgft2, BlSiX + 0 * mgft, BlSiY - 2.691 / 2 * mgft, 2, 'black')
+      // drawArrow(ctx, BlSiX - 1 * mgft + 1.826 * mgft2, BlSiY - 6.155 / 2 * mgft - 2.38 * mgft2, BlSiX - 1 * mgft, BlSiY - 6.155 / 2 * mgft, 2, 'black')
+      // drawArrow(ctx, BlSiX - 6.464 * mgft + 1.826 * mgft2, BlSiY - 12.464 / 2 * mgft - 2.38 * mgft2, BlSiX - 6.464 * mgft, BlSiY - 12.464 / 2 * mgft, 2, 'black')
+      // drawArrow(ctx, BlSiX - 7.464 * mgft + 2.435 * mgft2, BlSiY - 13 / 2 * mgft - 3.173 * mgft2, BlSiX - 7.464 * mgft, BlSiY - 13 / 2 * mgft, 2, 'black')
+      // var myInput = document.getElementById("my-input");
+      // var iT = 400 - 2.691 / 2 * mgft + "px";
+      // var iL = 400 + "px";
+      // console.log(iT);
+      // myInput.style.setProperty('--inputL', iL);
+      // myInput.style.setProperty('--inputT', iT);
     }
-            
+  }
+
+  function lineProfile(ctx, mgft, x, y, d1, d2, L1) {
+    ctx.strokeStyle = "black"; // 線條顏色
+    ctx.setLineDash([3, 3]); // 虛線樣式, [實線, 虛線]
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, y - d1 * mgft / 2);
+    ctx.lineTo(x - L1 * mgft, y - d2 * mgft / 2);
+    ctx.lineTo(x - L1 * mgft - 30, y - d2 * mgft / 2);
+    ctx.stroke();
+  }
+
+  function roundProfile(ctx, mgft, x, y, x1, y1, x2, y2, x3, y3, x4, y4, d1, L1) {
+    ctx.strokeStyle = "red";
+    ctx.setLineDash([0]);
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, y - x1 / 2 * mgft);
+    ctx.quadraticCurveTo(x, y - d1 * mgft / 2, x - y2 * mgft, y - x2 / 2 * mgft);
+    ctx.lineTo(x - y3 * mgft, y - x3 / 2 * mgft);
+    ctx.quadraticCurveTo(x - L1 * mgft, y - x4 / 2 * mgft, x - y4 * mgft, y - x4 / 2 * mgft);
+    ctx.lineTo(x - y4 * mgft - 30, y - x4 / 2 * mgft);
+    ctx.stroke();
+  }
+
+
+  function drawArrow(ctx, fromx, fromy, tox, toy, arrowWidth, color) {
+    //variables to be used when creating the arrow
+    var headlen = 10;
+    var angle = Math.atan2(toy - fromy, tox - fromx);
+
+    ctx.save();
+    ctx.strokeStyle = color;
+
+    //starting path of the arrow from the start square to the end square
+    //and drawing the stroke
+    ctx.beginPath();
+    ctx.moveTo(fromx, fromy);
+    ctx.lineTo(tox, toy);
+    ctx.lineWidth = arrowWidth;
+    ctx.stroke();
+
+    //starting a new path from the head of the arrow to one of the sides of
+    //the point
+    ctx.beginPath();
+    ctx.moveTo(tox, toy);
+    ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7),
+      toy - headlen * Math.sin(angle - Math.PI / 7));
+
+    //path from the side point of the arrow, to the other side point
+    ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7),
+      toy - headlen * Math.sin(angle + Math.PI / 7));
+
+    //path from the side point back to the tip of the arrow, and then
+    //again to the opposite side point
+    ctx.lineTo(tox, toy);
+    ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7),
+      toy - headlen * Math.sin(angle - Math.PI / 7));
+
+    //draws the paths created above
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  input_map = {
+    "B3": "start_y",
+    "B4": "d1_diameter",
+    "B5": "r1_fillet",
+    "B6": "a1_angle",
+    "B7": "d2_diameter",
+    "B8": "r2_fillet",
+    "B9": "nose_radius",
+  }
+
+  const elements = document.getElementsByClassName("initCondition")
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].addEventListener('change', function (event) {
+      Object.entries(input_map).forEach(([k, v]) => (window[k] = parseFloat(document.getElementById(v).value)));
+      let E3 = document.getElementById("A_X1").innerHTML = round_to_3_decimal_places(2 * B5 / TAN(((90 + B6) / 2) * PI() / 180))
+      let G3 = document.getElementById("A_Y0").innerHTML = round_to_3_decimal_places(0)
+      let E5 = document.getElementById("A_X2").innerHTML = round_to_3_decimal_places(2 * (B5 / TAN(((90 + B6) / 2) * PI() / 180)) * SIN(B6 * PI() / 180))
+      let G5 = document.getElementById("A_Y1").innerHTML = round_to_3_decimal_places((B5 / TAN(((90 + B6) / 2) * PI() / 180)) * COS(B6 * PI() / 180))
+      let E7 = document.getElementById("A_X3").innerHTML = round_to_3_decimal_places(2 * (TAN((B6 / 2) * PI() / 180) * B8) * SIN(B6 * PI() / 180))
+      let G7 = document.getElementById("A_Y2").innerHTML = round_to_3_decimal_places(TAN((B6 / 2) * PI() / 180) * B8 * COS(B6 * PI() / 180))
+      let E9 = document.getElementById("A_X0").innerHTML = round_to_3_decimal_places(0)
+      let G9 = document.getElementById("A_Y3").innerHTML = round_to_3_decimal_places(TAN((B6 / 2) * PI() / 180) * B8)
+
+      let G13 = document.getElementById("B_arc").innerHTML = round_to_3_decimal_places(2 * B9 * SIN((B6 / 2) * PI() / 180))
+      let I13 = document.getElementById("B_X_offset1").innerHTML = round_to_3_decimal_places(2 * G13 * SIN((B6 / 2) * PI() / 180))
+      let K13 = document.getElementById("B_Z_offset1").innerHTML = round_to_3_decimal_places(B9 - G13 * COS((B6 / 2) * PI() / 180))
+      let G14 = document.getElementById("B_contour_offset").innerHTML = round_to_3_decimal_places((B9 / COS(45 * PI() / 180) * COS((45 - B6) * PI() / 180)) - B9)
+      let I14 = document.getElementById("B_X_offset2").innerHTML = round_to_3_decimal_places(2 * G14 / COS(B6 * PI() / 180))
+      let K14 = document.getElementById("B_Z_offset2").innerHTML = round_to_3_decimal_places(G14 / SIN(B6 * PI() / 180))
+
+      let C15 = document.getElementById("B_1_nX").innerHTML = round_to_3_decimal_places(B4 - E3)
+      let E15 = document.getElementById("B_1_nZ").innerHTML = round_to_3_decimal_places(B3)
+      let G15 = document.getElementById("B_1_oX").innerHTML = round_to_3_decimal_places(B5 == 0 ? C15 - I14 : C15 - (2 * B9))
+      let I15 = document.getElementById("B_1_oZ").innerHTML = round_to_3_decimal_places(E15)
+
+      let C16 = document.getElementById("B_2_nX").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places(B4 + E5)
+      let E16 = document.getElementById("B_2_nZ").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places((B3 + G5) * -1)
+      let G16 = document.getElementById("B_2_oX").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places(C16 - I13)
+      let I16 = document.getElementById("B_2_oZ").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places(E16 - K13)
+      let K16 = document.getElementById("B_2_oR").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places(B5 + B9)
+
+      let C17 = document.getElementById("B_3_nX").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places(B7 - E7)
+      let E17 = document.getElementById("B_3_nZ").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places(((((B7 - B4) / 2) / TAN(B6 * PI() / 180) - G7 + B3) * -1))
+      let G17 = document.getElementById("B_3_oX").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places(C17 - I13)
+      let I17 = document.getElementById("B_3_oZ").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places(E17 - K13)
+
+      let C18 = document.getElementById("B_4_nX").innerHTML = B7
+      let E18 = document.getElementById("B_4_nZ").innerHTML = round_to_3_decimal_places(((((B7 - B4) / 2) / TAN(B6 * PI() / 180) + G9 + B3) * -1))
+      let G18 = document.getElementById("B_4_oX").innerHTML = round_to_3_decimal_places(C18)
+      let I18 = document.getElementById("B_4_oZ").innerHTML = round_to_3_decimal_places(B5 == 0 ? E18 - K14 : E18 - B9)
+      let K18 = document.getElementById("B_4_oR").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places(B8 + B9)
+
+      // let B23 = document.getElementById("C_D1").innerHTML = round_to_3_decimal_places(22.85)
+      // let E23 = document.getElementById("C_D2").innerHTML = round_to_3_decimal_places(19.35)
+      // let G23 = document.getElementById("C_arc").innerHTML = round_to_3_decimal_places(2 * B9 * SIN((B6 / 2) * PI() / 180))
+      // let I23 = document.getElementById("C_X_offset").innerHTML = round_to_3_decimal_places(2 * G23 * SIN((B6 / 2) * PI() / 180))
+      // let K23 = document.getElementById("C_Z_offset").innerHTML = round_to_3_decimal_places(B9 + G23 * COS((B6 / 2) * PI() / 180))
+      // let B24 = document.getElementById("C_L1").innerHTML = round_to_3_decimal_places(1.75)
+
+      // let C25 = document.getElementById("C_1_nX").innerHTML = round_to_3_decimal_places(B23)
+      // let E25 = document.getElementById("C_1_nZ").innerHTML = round_to_3_decimal_places((B24 - G9) * -1)
+      // let G25 = document.getElementById("C_1_oX").innerHTML = round_to_3_decimal_places(C25)
+      // let I25 = document.getElementById("C_1_oZ").innerHTML = round_to_3_decimal_places(E25 - B9)
+
+      // let C26 = document.getElementById("C_2_nX").innerHTML = round_to_3_decimal_places(B23 - E7)
+      // let E26 = document.getElementById("C_2_nZ").innerHTML = round_to_3_decimal_places((B24 + G7) * -1)
+      // let G26 = document.getElementById("C_2_oX").innerHTML = round_to_3_decimal_places(C26 - I13)
+      // let I26 = document.getElementById("C_2_oZ").innerHTML = round_to_3_decimal_places(E26 - K23)
+      // let K26 = document.getElementById("C_2_oR").innerHTML = round_to_3_decimal_places(B5 + B9)
+
+      // b_img_val_array = [["val_1",`(${C15},${E15})`],["val_2",`(${C16},${E16})`],["val_3",`(${C17},${E17})`],["val_4",`(${C18},${E18})`]]
+      // c_img_val_array = [["val_1",`(${C25},${E25})`],["val_2",`(${C26},${E26})`]]
+
+      // image_write_text("b_img", b_img_val_array)
+      // image_write_text("c_img", c_img_val_array)
+      draw();
+
+    });
+
+   }
+
+  
 </script>
+
 </html>
