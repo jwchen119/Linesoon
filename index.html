@@ -330,14 +330,13 @@
       lineProfile(ctx, mgft, BlSiX, BlSiY, D1, D2, L1);
       roundProfile(ctx, mgft, BlSiX, BlSiY,
         Math.abs(document.getElementById("B_1_nX").innerHTML),
-        // Math.abs(document.getElementById("B_1_nX").value),
         Math.abs(document.getElementById("B_1_nZ").innerHTML),
         Math.abs(document.getElementById("B_2_nX").innerHTML),
         Math.abs(document.getElementById("B_2_nZ").innerHTML),
         Math.abs(document.getElementById("B_3_nX").innerHTML),
         Math.abs(document.getElementById("B_3_nZ").innerHTML),
         Math.abs(document.getElementById("B_4_nX").innerHTML),
-        Math.abs(document.getElementById("B_4_nZ").innerHTML));
+        Math.abs(document.getElementById("B_4_nZ").innerHTML), D1, L1);
       console.log(document.getElementById("B_1_nX").innerHTML);
       drawArrow(ctx, BlSiX + 1.826 * mgft2, BlSiY - 2.691 / 2 * mgft - 2.38 * mgft2, BlSiX + 0 * mgft, BlSiY - 2.691 / 2 * mgft, 2, 'black')
       drawArrow(ctx, BlSiX - 1 * mgft + 1.826 * mgft2, BlSiY - 6.155 / 2 * mgft - 2.38 * mgft2, BlSiX - 1 * mgft, BlSiY - 6.155 / 2 * mgft, 2, 'black')
@@ -369,15 +368,15 @@
     ctx.stroke();
   }
 
-  function roundProfile(ctx, mgft, x, y, x1, y1, x2, y2, x3, y3, x4, y4) {
+  function roundProfile(ctx, mgft, x, y, x1, y1, x2, y2, x3, y3, x4, y4, d1, L1) {
     ctx.strokeStyle = "red";
     ctx.setLineDash([0]);
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(x, y - x1 / 2 * mgft);
-    ctx.quadraticCurveTo(x, y - 5 * mgft / 2, x - y2 * mgft, y - x2 / 2 * mgft);
+    ctx.quadraticCurveTo(x, y - d1 * mgft / 2, x - y2 * mgft, y - x2 / 2 * mgft);
     ctx.lineTo(x - y3 * mgft, y - x3 / 2 * mgft);
-    ctx.quadraticCurveTo(x - 6.928 * mgft, y - x4 / 2 * mgft, x - y4 * mgft, y - x4 / 2 * mgft);
+    ctx.quadraticCurveTo(x - L1 * mgft, y - x4 / 2 * mgft, x - y4 * mgft, y - x4 / 2 * mgft);
     ctx.lineTo(x - y4 * mgft - 30, y - x4 / 2 * mgft);
     ctx.stroke();
   }
@@ -467,7 +466,7 @@
       let G17 = document.getElementById("B_3_oX").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places(C17 - I13)
       let I17 = document.getElementById("B_3_oZ").innerHTML = B5 == 0 ? "無" : round_to_3_decimal_places(E17 - K13)
 
-      let C18 = document.getElementById("B_4_nX").innerHTML = 13
+      let C18 = document.getElementById("B_4_nX").innerHTML = B7
       let E18 = document.getElementById("B_4_nZ").innerHTML = round_to_3_decimal_places(((((B7 - B4) / 2) / TAN(B6 * PI() / 180) + G9 + B3) * -1))
       let G18 = document.getElementById("B_4_oX").innerHTML = round_to_3_decimal_places(C18)
       let I18 = document.getElementById("B_4_oZ").innerHTML = round_to_3_decimal_places(B5 == 0 ? E18 - K14 : E18 - B9)
