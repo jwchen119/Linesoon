@@ -298,7 +298,7 @@
 </body>
 
 <script>
-
+var MaxRes
   function PI() {
     return Math.PI
   }
@@ -316,38 +316,38 @@
     if (canvas.getContext) {
       var ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      var mgft = 40;  //放大倍率
-      var mgft2 = 20;
+      var MaxRes = (Math.abs(document.getElementById("B_4_nX").innerHTML)) / 2 > (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML) + 1 ) ? (Math.abs(document.getElementById("B_4_nX").innerHTML) / 2) : (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML) + 1);
+      //console.log(MaxRes);
+      var mgft = 380/MaxRes;  //畫圖放大倍率
+      var mgft2 = 20; //箭頭放大倍率
       var D1 = document.getElementById("d1_diameter").value;
       // var D1 = 5;
       var D2 = document.getElementById("d2_diameter").value;
       var angleE = document.getElementById("a1_angle").value;
       // var L1 = 6.928;
       var L1 = (((D2 - D1) / 2) / TAN(angleE * PI() / 180));
-      console.log(L1);
+      // console.log(L1);
       var BlSiX = 400;
       var BlSiY = 400;
-      lineProfile(ctx, mgft, BlSiX, BlSiY, D1, D2, L1);
-      roundProfile(ctx, mgft, BlSiX, BlSiY,
-        Math.abs(document.getElementById("B_1_nX").innerHTML),
-        Math.abs(document.getElementById("B_1_nZ").innerHTML),
-        Math.abs(document.getElementById("B_2_nX").innerHTML),
-        Math.abs(document.getElementById("B_2_nZ").innerHTML),
-        Math.abs(document.getElementById("B_3_nX").innerHTML),
-        Math.abs(document.getElementById("B_3_nZ").innerHTML),
-        Math.abs(document.getElementById("B_4_nX").innerHTML),
-        Math.abs(document.getElementById("B_4_nZ").innerHTML), D1, L1);
-      console.log(document.getElementById("B_1_nX").innerHTML);
-      drawArrow(ctx, BlSiX + 1.826 * mgft2, BlSiY - 2.691 / 2 * mgft - 2.38 * mgft2, BlSiX + 0 * mgft, BlSiY - 2.691 / 2 * mgft, 2, 'black')
-      drawArrow(ctx, BlSiX - 1 * mgft + 1.826 * mgft2, BlSiY - 6.155 / 2 * mgft - 2.38 * mgft2, BlSiX - 1 * mgft, BlSiY - 6.155 / 2 * mgft, 2, 'black')
-      drawArrow(ctx, BlSiX - 6.464 * mgft + 1.826 * mgft2, BlSiY - 12.464 / 2 * mgft - 2.38 * mgft2, BlSiX - 6.464 * mgft, BlSiY - 12.464 / 2 * mgft, 2, 'black')
-      drawArrow(ctx, BlSiX - 7.464 * mgft + 2.435 * mgft2, BlSiY - 13 / 2 * mgft - 3.173 * mgft2, BlSiX - 7.464 * mgft, BlSiY - 13 / 2 * mgft, 2, 'black')
+	var dwX1 = BlSiX;
+	var dwY1 = BlSiY - (Math.abs(document.getElementById("B_1_nX").innerHTML) / 2) * mgft;
+	var dwX2 = BlSiX - (Math.abs(document.getElementById("B_2_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML)) * mgft;
+	var dwY2 = BlSiY - (Math.abs(document.getElementById("B_2_nX").innerHTML) / 2) * mgft;
+	var dwX3 = BlSiX - (Math.abs(document.getElementById("B_3_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML)) * mgft;
+	var dwY3 = BlSiY - (Math.abs(document.getElementById("B_3_nX").innerHTML) / 2) * mgft;
+	var dwX4 = BlSiX - (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML)) * mgft;
+	var dwY4 = BlSiY - (Math.abs(document.getElementById("B_4_nX").innerHTML) / 2) * mgft;
+	var dwD1 = BlSiY - D1 * mgft / 2
+	var dwD2 = BlSiY - D2 * mgft / 2
+	var dwL1 = BlSiX - L1 * mgft
 
-      // roundProfile(ctx, mgft, BlSiX, BlSiY, 2.691, 0, 6.155, 1, 12.464, 6.464, 13, 7.464);
-      // drawArrow(ctx, BlSiX + 1.826 * mgft2, BlSiY - 2.691 / 2 * mgft - 2.38 * mgft2, BlSiX + 0 * mgft, BlSiY - 2.691 / 2 * mgft, 2, 'black')
-      // drawArrow(ctx, BlSiX - 1 * mgft + 1.826 * mgft2, BlSiY - 6.155 / 2 * mgft - 2.38 * mgft2, BlSiX - 1 * mgft, BlSiY - 6.155 / 2 * mgft, 2, 'black')
-      // drawArrow(ctx, BlSiX - 6.464 * mgft + 1.826 * mgft2, BlSiY - 12.464 / 2 * mgft - 2.38 * mgft2, BlSiX - 6.464 * mgft, BlSiY - 12.464 / 2 * mgft, 2, 'black')
-      // drawArrow(ctx, BlSiX - 7.464 * mgft + 2.435 * mgft2, BlSiY - 13 / 2 * mgft - 3.173 * mgft2, BlSiX - 7.464 * mgft, BlSiY - 13 / 2 * mgft, 2, 'black')
+      lineProfile(ctx, BlSiX, BlSiY, BlSiX, dwD1, dwL1, dwD2, dwX4, dwY4);
+      roundProfile(ctx, BlSiX, BlSiY, dwX1, dwY1, dwX2, dwY2, dwX3, dwY3, dwX4, dwY4, dwD1, dwL1);
+      drawArrow(ctx, dwX1 + 1.826 * mgft2, dwY1 - 2.38 * mgft2, dwX1, dwY1, 2, 'black')
+      drawArrow(ctx, dwX2 + 1.826 * mgft2, dwY2 - 2.38 * mgft2, dwX2, dwY2, 2, 'black')
+      drawArrow(ctx, dwX3 + 1.826 * mgft2, dwY3 - 2.38 * mgft2, dwX3, dwY3, 2, 'black')
+      drawArrow(ctx, dwX4 + 2.435 * mgft2, dwY4 - 3.173 * mgft2, dwX4, dwY4, 2, 'black')
+
       // var myInput = document.getElementById("my-input");
       // var iT = 400 - 2.691 / 2 * mgft + "px";
       // var iL = 400 + "px";
@@ -357,27 +357,27 @@
     }
   }
 
-  function lineProfile(ctx, mgft, x, y, d1, d2, L1) {
+  function lineProfile(ctx, x, y, x1, y1, x2, y2, x3, y3) {
     ctx.strokeStyle = "black"; // 線條顏色
     ctx.setLineDash([3, 3]); // 虛線樣式, [實線, 虛線]
     ctx.beginPath();
     ctx.moveTo(x, y);
-    ctx.lineTo(x, y - d1 * mgft / 2);
-    ctx.lineTo(x - L1 * mgft, y - d2 * mgft / 2);
-    ctx.lineTo(x - L1 * mgft - 30, y - d2 * mgft / 2);
+    ctx.lineTo(x1, y1);
+    ctx.lineTo(x2 , y2);
+    ctx.lineTo(x3, y3);
     ctx.stroke();
   }
 
-  function roundProfile(ctx, mgft, x, y, x1, y1, x2, y2, x3, y3, x4, y4, d1, L1) {
+  function roundProfile(ctx, x, y, x1, y1, x2, y2, x3, y3, x4, y4, d1, LL1) {
     ctx.strokeStyle = "red";
     ctx.setLineDash([0]);
     ctx.beginPath();
     ctx.moveTo(x, y);
-    ctx.lineTo(x, y - x1 / 2 * mgft);
-    ctx.quadraticCurveTo(x, y - d1 * mgft / 2, x - y2 * mgft, y - x2 / 2 * mgft);
-    ctx.lineTo(x - y3 * mgft, y - x3 / 2 * mgft);
-    ctx.quadraticCurveTo(x - L1 * mgft, y - x4 / 2 * mgft, x - y4 * mgft, y - x4 / 2 * mgft);
-    ctx.lineTo(x - y4 * mgft - 30, y - x4 / 2 * mgft);
+    ctx.lineTo(x1, y1);
+    ctx.quadraticCurveTo(x, d1, x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.quadraticCurveTo(LL1 , y4 , x4, y4);
+    ctx.lineTo(x4 - 30, y4);
     ctx.stroke();
   }
 
@@ -495,13 +495,14 @@
 
       // image_write_text("b_img", b_img_val_array)
       // image_write_text("c_img", c_img_val_array)
+      // var MaxRes = ((C18/2) > (Math.abs(E18)+30)) ? C18/2 : Math.abs(E18)+30;
+	
       draw();
 
     });
 
-   }
+  }
 
-  
 </script>
 
 </html>
