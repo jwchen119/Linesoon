@@ -310,6 +310,9 @@
 
 <script>
   var MaxRes
+  var postiveCut_1, postiveCut_2, negativeCut_1, negativeCut_2; // 定義四種切銷狀態
+  var positiveCut_1 = 1; // 暫時定義第一種正角切銷啟用
+
   function PI() {
     return Math.PI
   }
@@ -326,16 +329,14 @@
     var canvas = document.getElementById("canvas");
     if (canvas.getContext) {
       var ctx = canvas.getContext("2d");
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       var MaxRes = (Math.abs(document.getElementById("B_4_nX").innerHTML)) / 2 > (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML) + 1) ? (Math.abs(document.getElementById("B_4_nX").innerHTML) / 2) : (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML) + 1);
-      //console.log(MaxRes);
       var mgft = 380 / MaxRes;  //畫圖放大倍率
       var mgft2 = 20; //箭頭放大倍率
       var D1 = document.getElementById("d1_diameter").value;
-      // var D1 = 5;
       var D2 = document.getElementById("d2_diameter").value;
       var angleE = document.getElementById("a1_angle").value;
-      // var L1 = 6.928;
       var L1 = (((D2 - D1) / 2) / TAN(angleE * PI() / 180));
       // console.log(L1);
       var BlSiX = 400;
@@ -351,14 +352,44 @@
       var dwD1 = BlSiY - D1 * mgft / 2
       var dwD2 = BlSiY - D2 * mgft / 2
       var dwL1 = BlSiX - L1 * mgft
+      ctx.font = 12 + "px Arial";
 
-      lineProfile(ctx, BlSiX, BlSiY, BlSiX, dwD1, dwL1, dwD2, dwX4, dwY4);
-      roundProfile(ctx, BlSiX, BlSiY, dwX1, dwY1, dwX2, dwY2, dwX3, dwY3, dwX4, dwY4, dwD1, dwL1);
-      drawArrow(ctx, dwX1 + 1.826 * mgft2, dwY1 - 2.38 * mgft2, dwX1, dwY1, 2, 'black')
-      drawArrow(ctx, dwX2 + 1.826 * mgft2, dwY2 - 2.38 * mgft2, dwX2, dwY2, 2, 'black')
-      drawArrow(ctx, dwX3 + 1.826 * mgft2, dwY3 - 2.38 * mgft2, dwX3, dwY3, 2, 'black')
-      drawArrow(ctx, dwX4 + 2.435 * mgft2, dwY4 - 3.173 * mgft2, dwX4, dwY4, 2, 'black')
+      if (positiveCut_1 == 1) {
+        lineProfile(ctx, BlSiX, BlSiY, BlSiX, dwD1, dwL1, dwD2, dwX4, dwY4);
+        roundProfile(ctx, BlSiX, BlSiY, dwX1, dwY1, dwX2, dwY2, dwX3, dwY3, dwX4, dwY4, dwD1, dwL1);
+        drawArrow(ctx, dwX1 + 1.826 * mgft2, dwY1 - 2.38 * mgft2, dwX1, dwY1, 2, 'black')
+        drawArrow(ctx, dwX2 + 1.826 * mgft2, dwY2 - 2.38 * mgft2, dwX2, dwY2, 2, 'black')
+        drawArrow(ctx, dwX3 + 1.826 * mgft2, dwY3 - 2.38 * mgft2, dwX3, dwY3, 2, 'black')
+        drawArrow(ctx, dwX4 + 2.435 * mgft2, dwY4 - 3.173 * mgft2, dwX4, dwY4, 2, 'black')
+        ctx.fillText("(" + document.getElementById("B_1_nX").innerHTML + "," + document.getElementById("B_1_nZ").innerHTML + ")", dwX1 + 1.826 * mgft2 - 10, dwY1 - 2.38 * mgft2 - 5);
+        ctx.fillText("(" + document.getElementById("B_2_nX").innerHTML + "," + document.getElementById("B_2_nZ").innerHTML + ")", dwX2 + 1.826 * mgft2 - 10, dwY2 - 2.38 * mgft2 - 5);
+        ctx.fillText("(" + document.getElementById("B_3_nX").innerHTML + "," + document.getElementById("B_3_nZ").innerHTML + ")", dwX3 + 1.826 * mgft2 - 10, dwY3 - 2.38 * mgft2 - 5);
+        ctx.fillText("(" + document.getElementById("B_4_nX").innerHTML + "," + document.getElementById("B_4_nZ").innerHTML + ")", dwX4 + 2.435 * mgft2 - 10, dwY4 - 3.173 * mgft2 - 5);
 
+      } else if (positiveCut_2 == 1) {
+        lineProfile(ctx, BlSiX, BlSiY, BlSiX, dwD1, dwL1, dwD2, dwX4, dwY4);
+        roundProfile(ctx, BlSiX, BlSiY, dwX1, dwY1, dwX2, dwY2, dwX3, dwY3, dwX4, dwY4, dwD1, dwL1);
+        drawArrow(ctx, dwX1 + 1.826 * mgft2, dwY1 - 2.38 * mgft2, dwX1, dwY1, 2, 'black')
+        drawArrow(ctx, dwX2 + 1.826 * mgft2, dwY2 - 2.38 * mgft2, dwX2, dwY2, 2, 'black')
+        drawArrow(ctx, dwX3 + 1.826 * mgft2, dwY3 - 2.38 * mgft2, dwX3, dwY3, 2, 'black')
+        drawArrow(ctx, dwX4 + 2.435 * mgft2, dwY4 - 3.173 * mgft2, dwX4, dwY4, 2, 'black')
+      } else if (negativeCut_1 == 1) {
+        lineProfile(ctx, BlSiX, BlSiY, BlSiX, dwD1, dwL1, dwD2, dwX4, dwY4);
+        roundProfile(ctx, BlSiX, BlSiY, dwX1, dwY1, dwX2, dwY2, dwX3, dwY3, dwX4, dwY4, dwD1, dwL1);
+        drawArrow(ctx, dwX1 + 1.826 * mgft2, dwY1 - 2.38 * mgft2, dwX1, dwY1, 2, 'black')
+        drawArrow(ctx, dwX2 + 1.826 * mgft2, dwY2 - 2.38 * mgft2, dwX2, dwY2, 2, 'black')
+        drawArrow(ctx, dwX3 + 1.826 * mgft2, dwY3 - 2.38 * mgft2, dwX3, dwY3, 2, 'black')
+        drawArrow(ctx, dwX4 + 2.435 * mgft2, dwY4 - 3.173 * mgft2, dwX4, dwY4, 2, 'black')
+      } else if (negativeCut_2 == 1) {
+        lineProfile(ctx, BlSiX, BlSiY, BlSiX, dwD1, dwL1, dwD2, dwX4, dwY4);
+        roundProfile(ctx, BlSiX, BlSiY, dwX1, dwY1, dwX2, dwY2, dwX3, dwY3, dwX4, dwY4, dwD1, dwL1);
+        drawArrow(ctx, dwX1 + 1.826 * mgft2, dwY1 - 2.38 * mgft2, dwX1, dwY1, 2, 'black')
+        drawArrow(ctx, dwX2 + 1.826 * mgft2, dwY2 - 2.38 * mgft2, dwX2, dwY2, 2, 'black')
+        drawArrow(ctx, dwX3 + 1.826 * mgft2, dwY3 - 2.38 * mgft2, dwX3, dwY3, 2, 'black')
+        drawArrow(ctx, dwX4 + 2.435 * mgft2, dwY4 - 3.173 * mgft2, dwX4, dwY4, 2, 'black')
+      } else {
+        console.log();
+      }
     }
   }
 
@@ -501,8 +532,9 @@
       // image_write_text("b_img", b_img_val_array)
       // image_write_text("c_img", c_img_val_array)
       // var MaxRes = ((C18/2) > (Math.abs(E18)+30)) ? C18/2 : Math.abs(E18)+30;
-
       draw();
+
+
 
     });
 
