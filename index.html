@@ -103,88 +103,17 @@
   <table>
     <thead>
       <tr>
-        <th colspan="7">無補刀鼻-C&R角尺寸</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td colspan="2">第一圓&倒角</td>
-        <td></td>
-        <td colspan="2">第一點差值</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>起始Y</td>
-        <td><input type="number" name="" id="start_y2" style="width:60px" class="input_val"></td>
-        <td></td>
-        <td class="t_right">X1:</td>
-        <td id="A_X1"></td>
-        <td class="t_right">Y0:</td>
-        <td id="A_Y0"></td>
-      </tr>
-      <tr>
-        <td>D1直徑</td>
-        <td><input type="number" name="" id="d1_diameter2" style="width:60px" class="input_val"></td>
-        <td></td>
-        <td colspan="2">第二點差值</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>R1圓角</td>
-        <td><input type="number" name="" id="r1_fillet2" style="width:60px" class="input_val"></td>
-        <td></td>
-        <td class="t_right">X2:</td>
-        <td id="A_X2"></td>
-        <td class="t_right">Y1:</td>
-        <td id="A_Y1"></td>
-      </tr>
-      <tr>
-        <td>A1角度</td>
-        <td><input type="number" name="" id="a1_angle2" style="width:60px" class="input_val"></td>
-        <td></td>
-        <td colspan="2">第三點差值</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>D2直徑</td>
-        <td><input type="number" name="" id="d2_diameter2" style="width:60px" class="input_val"></td>
-        <td></td>
-        <td class="t_right">X3:</td>
-        <td id="A_X3"></td>
-        <td class="t_right">Y2:</td>
-        <td id="A_Y2"></td>
-      </tr>
-      <tr>
-        <td>R2圓角</td>
-        <td><input type="number" name="" id="r2_fillet2" style="width:60px" class="input_val"></td>
-        <td></td>
-        <td colspan="2">第四點差值</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>刀鼻半徑</td>
-        <td><input type="number" name="" id="nose_radius2" style="width:60px" class="input_val"></td>
-        <td></td>
-        <td class="t_right">X0:</td>
-        <td id="A_X0"></td>
-        <td class="t_right">Y3:</td>
-        <td id="A_Y3"></td>
-      </tr>
-    </tbody>
-  </table>
-  <table>
-    <thead>
-      <tr>
         <th colspan="11">正角車削外徑</th>
+        <th colspan="4">無補刀鼻-C&R角尺寸</th>
       </tr>
       <tr>
         <th colspan="5">無補刀鼻半徑</th>
         <th colspan="6">補刀鼻半徑</th>
+        <td colspan="2">第一點差值</td>
+        <td></td>
+        <td></td>
       </tr>
+
     </thead>
     <tbody>
       <tr>
@@ -199,6 +128,10 @@
         <td id="B_X_offset1"></td>
         <td class="t_right">Z偏值</td>
         <td id="B_Z_offset1"></td>
+        <td class="t_right">X1:</td>
+        <td id="A_X1"></td>
+        <td class="t_right">Y0:</td>
+        <td id="A_Y0"></td>
       </tr>
       <tr>
         <td></td>
@@ -212,6 +145,9 @@
         <td id="B_X_offset2"></td>
         <td class="t_right">Z偏值</td>
         <td id="B_Z_offset2"></td>
+        <td colspan="2">第二點差值</td>
+        <td></td>
+        <td></td>
       </tr>
       <tr>
         <td>第一點:</td>
@@ -225,6 +161,10 @@
         <td id="B_1_oZ"></td>
         <td></td>
         <td></td>
+        <td class="t_right">X2:</td>
+        <td id="A_X2"></td>
+        <td class="t_right">Y1:</td>
+        <td id="A_Y1"></td>
       </tr>
       <tr>
         <td>第二點:</td>
@@ -238,6 +178,9 @@
         <td id="B_2_oZ"></td>
         <td class="t_right">R:</td>
         <td id="B_2_oR"></td>
+        <td colspan="2">第三點差值</td>
+        <td></td>
+        <td></td>
       </tr>
       <tr>
         <td>第三點:</td>
@@ -251,6 +194,10 @@
         <td id="B_3_oZ"></td>
         <td></td>
         <td></td>
+        <td class="t_right">X3:</td>
+        <td id="A_X3"></td>
+        <td class="t_right">Y2:</td>
+        <td id="A_Y2"></td>
       </tr>
       <tr>
         <td>第四點:</td>
@@ -264,9 +211,73 @@
         <td id="B_4_oZ"></td>
         <td class="t_right">R:</td>
         <td id="B_4_oR"></td>
+        <td colspan="2">第四點差值</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="11"></td>
+        <td class="t_right">X0:</td>
+        <td id="A_X0"></td>
+        <td class="t_right">Y3:</td>
+        <td id="A_Y3"></td>
       </tr>
     </tbody>
   </table>
+
+  <!-- <table>
+    <thead>
+      <tr>
+        <th colspan="4">無補刀鼻-C&R角尺寸</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="2">第一點差值</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="t_right">X1:</td>
+        <td id="A_X1"></td>
+        <td class="t_right">Y0:</td>
+        <td id="A_Y0"></td>
+      </tr>
+      <tr>
+        <td colspan="2">第二點差值</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="t_right">X2:</td>
+        <td id="A_X2"></td>
+        <td class="t_right">Y1:</td>
+        <td id="A_Y1"></td>
+      </tr>
+      <tr>
+        <td colspan="2">第三點差值</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="t_right">X3:</td>
+        <td id="A_X3"></td>
+        <td class="t_right">Y2:</td>
+        <td id="A_Y2"></td>
+      </tr>
+      <tr>
+        <td colspan="2">第四點差值</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="t_right">X0:</td>
+        <td id="A_X0"></td>
+        <td class="t_right">Y3:</td>
+        <td id="A_Y3"></td>
+      </tr>
+    </tbody>
+  </table> -->
 
   <div class="image-container">
     <img id="myImage" src="positive_cut2.png" alt="My Image">
@@ -285,8 +296,8 @@
         id="r2_fillet" class="initCondition">
       <input type="number" placeholder="刀鼻半徑" value="0.4" onfocus="this.placeholder=''" onblur="this.placeholder='刀鼻半徑'"
         id="nose_radius" class="initCondition">
-      <input type="number" placeholder="L1" onfocus="this.placeholder=''" onblur="this.placeholder='L1'" id="L1_"
-        class="initCondition">
+      <!-- <input type="number" placeholder="L1" onfocus="this.placeholder=''" onblur="this.placeholder='L1'" id="L1_"
+        class="initCondition"> -->
 
     </div>
   </div>
@@ -298,7 +309,7 @@
 </body>
 
 <script>
-var MaxRes
+  var MaxRes
   function PI() {
     return Math.PI
   }
@@ -316,9 +327,9 @@ var MaxRes
     if (canvas.getContext) {
       var ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      var MaxRes = (Math.abs(document.getElementById("B_4_nX").innerHTML)) / 2 > (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML) + 1 ) ? (Math.abs(document.getElementById("B_4_nX").innerHTML) / 2) : (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML) + 1);
+      var MaxRes = (Math.abs(document.getElementById("B_4_nX").innerHTML)) / 2 > (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML) + 1) ? (Math.abs(document.getElementById("B_4_nX").innerHTML) / 2) : (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML) + 1);
       //console.log(MaxRes);
-      var mgft = 380/MaxRes;  //畫圖放大倍率
+      var mgft = 380 / MaxRes;  //畫圖放大倍率
       var mgft2 = 20; //箭頭放大倍率
       var D1 = document.getElementById("d1_diameter").value;
       // var D1 = 5;
@@ -329,17 +340,17 @@ var MaxRes
       // console.log(L1);
       var BlSiX = 400;
       var BlSiY = 400;
-	var dwX1 = BlSiX;
-	var dwY1 = BlSiY - (Math.abs(document.getElementById("B_1_nX").innerHTML) / 2) * mgft;
-	var dwX2 = BlSiX - (Math.abs(document.getElementById("B_2_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML)) * mgft;
-	var dwY2 = BlSiY - (Math.abs(document.getElementById("B_2_nX").innerHTML) / 2) * mgft;
-	var dwX3 = BlSiX - (Math.abs(document.getElementById("B_3_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML)) * mgft;
-	var dwY3 = BlSiY - (Math.abs(document.getElementById("B_3_nX").innerHTML) / 2) * mgft;
-	var dwX4 = BlSiX - (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML)) * mgft;
-	var dwY4 = BlSiY - (Math.abs(document.getElementById("B_4_nX").innerHTML) / 2) * mgft;
-	var dwD1 = BlSiY - D1 * mgft / 2
-	var dwD2 = BlSiY - D2 * mgft / 2
-	var dwL1 = BlSiX - L1 * mgft
+      var dwX1 = BlSiX;
+      var dwY1 = BlSiY - (Math.abs(document.getElementById("B_1_nX").innerHTML) / 2) * mgft;
+      var dwX2 = BlSiX - (Math.abs(document.getElementById("B_2_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML)) * mgft;
+      var dwY2 = BlSiY - (Math.abs(document.getElementById("B_2_nX").innerHTML) / 2) * mgft;
+      var dwX3 = BlSiX - (Math.abs(document.getElementById("B_3_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML)) * mgft;
+      var dwY3 = BlSiY - (Math.abs(document.getElementById("B_3_nX").innerHTML) / 2) * mgft;
+      var dwX4 = BlSiX - (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML)) * mgft;
+      var dwY4 = BlSiY - (Math.abs(document.getElementById("B_4_nX").innerHTML) / 2) * mgft;
+      var dwD1 = BlSiY - D1 * mgft / 2
+      var dwD2 = BlSiY - D2 * mgft / 2
+      var dwL1 = BlSiX - L1 * mgft
 
       lineProfile(ctx, BlSiX, BlSiY, BlSiX, dwD1, dwL1, dwD2, dwX4, dwY4);
       roundProfile(ctx, BlSiX, BlSiY, dwX1, dwY1, dwX2, dwY2, dwX3, dwY3, dwX4, dwY4, dwD1, dwL1);
@@ -348,12 +359,6 @@ var MaxRes
       drawArrow(ctx, dwX3 + 1.826 * mgft2, dwY3 - 2.38 * mgft2, dwX3, dwY3, 2, 'black')
       drawArrow(ctx, dwX4 + 2.435 * mgft2, dwY4 - 3.173 * mgft2, dwX4, dwY4, 2, 'black')
 
-      // var myInput = document.getElementById("my-input");
-      // var iT = 400 - 2.691 / 2 * mgft + "px";
-      // var iL = 400 + "px";
-      // console.log(iT);
-      // myInput.style.setProperty('--inputL', iL);
-      // myInput.style.setProperty('--inputT', iT);
     }
   }
 
@@ -363,7 +368,7 @@ var MaxRes
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(x1, y1);
-    ctx.lineTo(x2 , y2);
+    ctx.lineTo(x2, y2);
     ctx.lineTo(x3, y3);
     ctx.stroke();
   }
@@ -376,7 +381,7 @@ var MaxRes
     ctx.lineTo(x1, y1);
     ctx.quadraticCurveTo(x, d1, x2, y2);
     ctx.lineTo(x3, y3);
-    ctx.quadraticCurveTo(LL1 , y4 , x4, y4);
+    ctx.quadraticCurveTo(LL1, y4, x4, y4);
     ctx.lineTo(x4 - 30, y4);
     ctx.stroke();
   }
@@ -496,7 +501,7 @@ var MaxRes
       // image_write_text("b_img", b_img_val_array)
       // image_write_text("c_img", c_img_val_array)
       // var MaxRes = ((C18/2) > (Math.abs(E18)+30)) ? C18/2 : Math.abs(E18)+30;
-	
+
       draw();
 
     });
