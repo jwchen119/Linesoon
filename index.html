@@ -100,7 +100,7 @@
 </style>
 
 <body>
-  <table>
+  <table class="tb" id="positiveCutTable">
     <thead>
       <tr>
         <th colspan="11">正角車削外徑</th>
@@ -110,8 +110,7 @@
         <th colspan="5">無補刀鼻半徑</th>
         <th colspan="6">補刀鼻半徑</th>
         <td colspan="2">第一點差值</td>
-        <td></td>
-        <td></td>
+        <th colspan="2"></th>
       </tr>
 
     </thead>
@@ -225,59 +224,128 @@
     </tbody>
   </table>
 
-  <!-- <table>
+  <table class="tb" id="negativeCutTable">
     <thead>
       <tr>
+        <th colspan="11">負角切削外徑</th>
         <th colspan="4">無補刀鼻-C&R角尺寸</th>
+      </tr>
+      <tr>
+        <th colspan="5">無補刀鼻半徑</th>
+        <th colspan="6">補刀鼻半徑</th>
+        <td colspan="2">第一點差值</td>
+        <th colspan="2"></th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td colspan="2">第一點差值</td>
+        <td>D1直徑</td>
+        <td id="C_D1"></td>
         <td></td>
-        <td></td>
-      </tr>
-      <tr>
+        <td>D2直徑</td>
+        <td id="C_D2"></td>
+        <td class="t_right">弦長</td>
+        <td id="C_arc"></td>
+        <td class="t_right">X偏值</td>
+        <td id="C_X_offset"></td>
+        <td class="t_right">Z偏值</td>
+        <td id="C_Z_offset"></td>
         <td class="t_right">X1:</td>
         <td id="A_X1"></td>
         <td class="t_right">Y0:</td>
         <td id="A_Y0"></td>
       </tr>
       <tr>
+        <td>L1</td>
+        <td id="C_L1"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td colspan="2">第二點差值</td>
         <td></td>
         <td></td>
       </tr>
       <tr>
+        <td>第一點:</td>
+        <td class="t_right">X:</td>
+        <td id="C_1_nX"></td>
+        <td class="t_right">Z:</td>
+        <td id="C_1_nZ"></td>
+        <td class="t_right">X:</td>
+        <td id="C_1_oX"></td>
+        <td class="t_right">Z:</td>
+        <td id="C_1_oZ"></td>
+        <td></td>
+        <td></td>
         <td class="t_right">X2:</td>
         <td id="A_X2"></td>
         <td class="t_right">Y1:</td>
         <td id="A_Y1"></td>
       </tr>
       <tr>
+        <td>第二點:</td>
+        <td class="t_right">X:</td>
+        <td id="C_2_nX"></td>
+        <td class="t_right">Z:</td>
+        <td id="C_2_nZ"></td>
+        <td class="t_right">X:</td>
+        <td id="C_2_oX"></td>
+        <td class="t_right">Z:</td>
+        <td id="C_2_oZ"></td>
+        <td class="t_right">R:</td>
+        <td id="C_2_oR"></td>
         <td colspan="2">第三點差值</td>
         <td></td>
         <td></td>
       </tr>
       <tr>
+        <td>第三點:</td>
+        <td class="t_right">X:</td>
+        <td id="C_3_nX"></td>
+        <td class="t_right">Z:</td>
+        <td id="C_3_nZ"></td>
+        <td class="t_right">X:</td>
+        <td id="C_3_oX"></td>
+        <td class="t_right">Z:</td>
+        <td id="C_3_oZ"></td>
+        <td></td>
+        <td></td>
         <td class="t_right">X3:</td>
         <td id="A_X3"></td>
         <td class="t_right">Y2:</td>
         <td id="A_Y2"></td>
       </tr>
       <tr>
+        <td>第四點:</td>
+        <td class="t_right">X:</td>
+        <td id="C_4_nX"></td>
+        <td class="t_right">Z:</td>
+        <td id="C_4_nZ"></td>
+        <td class="t_right">X:</td>
+        <td id="C_4_oX"></td>
+        <td class="t_right">Z:</td>
+        <td id="C_4_oZ"></td>
+        <td class="t_right">R:</td>
+        <td id="C_4_oR"></td>
         <td colspan="2">第四點差值</td>
         <td></td>
         <td></td>
       </tr>
       <tr>
+        <td colspan="11"></td>
         <td class="t_right">X0:</td>
         <td id="A_X0"></td>
         <td class="t_right">Y3:</td>
         <td id="A_Y3"></td>
       </tr>
     </tbody>
-  </table> -->
+  </table>
 
   <div class="image-container">
     <img id="myImage" src="positive_cut2.png" alt="My Image">
@@ -306,12 +374,30 @@
     <canvas id="canvas" width="500" height="500"></canvas>
     <!-- <input type="text" id="my-input"> -->
   </div>
+
+  <img src="home.png" alt="home" id="home" class="img" onclick="checkImg('home')" />
+  <img src="positive_cut2.png" alt="positive_cut2" id="p1_img" class="img" onclick="checkImg('p1')" />
+  <img src="negativeCut.png" alt="negativeCut" id="n1_img" class="img" onclick="checkImg('n1')" />
+
 </body>
 
 <script>
+
   var MaxRes
-  var postiveCut_1, postiveCut_2, negativeCut_1, negativeCut_2; // 定義四種切銷狀態
-  var positiveCut_1 = 1; // 暫時定義第一種正角切銷啟用
+  var positiveCut_1, positiveCut_2, negativeCut_1, negativeCut_2; // 定義四種切銷狀態
+
+  // var positiveCut_1 = 1; // 暫時定義第一種正角切銷啟用
+  // document.getElementById("negativeCutTable").style.display = "none";
+  // document.getElementsByClassName("tb").style.display = "none";
+  let tbVis = document.getElementsByClassName("tb")
+  for (var i = 0; i < tbVis.length; i++) {
+    tbVis[i].style.display = "none";
+  }
+  document.getElementsByClassName("image-container")[0].style.visibility = "hidden";
+  document.getElementById("canvas").style.visibility = "hidden";
+  // if (positiveCut_1 == 1) {
+  //   document.getElementById("positiveCutTable").style.display = "table";
+  // }
 
   function PI() {
     return Math.PI
@@ -329,6 +415,17 @@
     var canvas = document.getElementById("canvas");
     if (canvas.getContext) {
       var ctx = canvas.getContext("2d");
+      const dpr = window.devicePixelRatio;
+      const rect = canvas.getBoundingClientRect();
+
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+
+      ctx.scale(dpr, dpr);
+
+      // Set the "drawn" size of the canvas
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       var MaxRes = (Math.abs(document.getElementById("B_4_nX").innerHTML)) / 2 > (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML) + 1) ? (Math.abs(document.getElementById("B_4_nX").innerHTML) / 2) : (Math.abs(document.getElementById("B_4_nZ").innerHTML) - Math.abs(document.getElementById("B_1_nZ").innerHTML) + 1);
@@ -361,10 +458,10 @@
         drawArrow(ctx, dwX2 + 1.826 * mgft2, dwY2 - 2.38 * mgft2, dwX2, dwY2, 2, 'black')
         drawArrow(ctx, dwX3 + 1.826 * mgft2, dwY3 - 2.38 * mgft2, dwX3, dwY3, 2, 'black')
         drawArrow(ctx, dwX4 + 2.435 * mgft2, dwY4 - 3.173 * mgft2, dwX4, dwY4, 2, 'black')
-        ctx.fillText("(" + document.getElementById("B_1_nX").innerHTML + "," + document.getElementById("B_1_nZ").innerHTML + ")", dwX1 + 1.826 * mgft2 - 10, dwY1 - 2.38 * mgft2 - 5);
-        ctx.fillText("(" + document.getElementById("B_2_nX").innerHTML + "," + document.getElementById("B_2_nZ").innerHTML + ")", dwX2 + 1.826 * mgft2 - 10, dwY2 - 2.38 * mgft2 - 5);
-        ctx.fillText("(" + document.getElementById("B_3_nX").innerHTML + "," + document.getElementById("B_3_nZ").innerHTML + ")", dwX3 + 1.826 * mgft2 - 10, dwY3 - 2.38 * mgft2 - 5);
-        ctx.fillText("(" + document.getElementById("B_4_nX").innerHTML + "," + document.getElementById("B_4_nZ").innerHTML + ")", dwX4 + 2.435 * mgft2 - 10, dwY4 - 3.173 * mgft2 - 5);
+        ctx.fillText("(" + document.getElementById("B_1_nX").innerHTML + "," + document.getElementById("B_1_nZ").innerHTML + ")", dwX1 + 1.826 * mgft2 - 20, dwY1 - 2.38 * mgft2 - 5);
+        ctx.fillText("(" + document.getElementById("B_2_nX").innerHTML + "," + document.getElementById("B_2_nZ").innerHTML + ")", dwX2 + 1.826 * mgft2 - 20, dwY2 - 2.38 * mgft2 - 5);
+        ctx.fillText("(" + document.getElementById("B_3_nX").innerHTML + "," + document.getElementById("B_3_nZ").innerHTML + ")", dwX3 + 1.826 * mgft2 - 20, dwY3 - 2.38 * mgft2 - 5);
+        ctx.fillText("(" + document.getElementById("B_4_nX").innerHTML + "," + document.getElementById("B_4_nZ").innerHTML + ")", dwX4 + 2.435 * mgft2 - 20, dwY4 - 3.173 * mgft2 - 5);
 
       } else if (positiveCut_2 == 1) {
         lineProfile(ctx, BlSiX, BlSiY, BlSiX, dwD1, dwL1, dwD2, dwX4, dwY4);
@@ -454,6 +551,51 @@
     //draws the paths created above
     ctx.stroke();
     ctx.restore();
+  }
+
+  function checkImg(imgC) {
+    let tbVis = document.getElementsByClassName("tb")
+    for (var i = 0; i < tbVis.length; i++) {
+      tbVis[i].style.display = "none";
+    }
+    document.getElementById("canvas").style.visibility = "hidden";
+    if (imgC == "p1") {
+      positiveCut_1 = 1;
+      positiveCut_2 = 0;
+      negativeCut_1 = 0;
+      negativeCut_2 = 0;
+      document.getElementById("positiveCutTable").style.display = "table";
+    } else if (imgC == "p2") {
+      positiveCut_2 = 1;
+      positiveCut_1 = 0;
+      negativeCut_1 = 0;
+      negativeCut_2 = 0;
+    } else if (imgC == "n1") {
+      negativeCut_1 = 1;
+      positiveCut_1 = 0;
+      positiveCut_2 = 0;
+      negativeCut_2 = 0;
+      document.getElementById("negativeCutTable").style.display = "table";
+    } else if (imgC == "n2") {
+      negativeCut_2 = 1;
+      positiveCut_1 = 0;
+      positiveCut_2 = 0;
+      negativeCut_1 = 0;
+    } else {
+      positiveCut_1 = 0;
+      positiveCut_2 = 0;
+      negativeCut_1 = 0;
+      negativeCut_2 = 0;
+    }
+    document.getElementById("canvas").style.visibility = "visible";
+    document.getElementsByClassName("image-container")[0].style.visibility = "visible";
+    console.log(positiveCut_1);
+    if (imgC == "home") {
+      document.getElementById("canvas").style.visibility = "hidden";
+      document.getElementsByClassName("image-container")[0].style.visibility = "hidden";
+      document.getElementById("negativeCutTable").style.display = "none";
+      document.getElementById("positiveCutTable").style.display = "none";
+    }
   }
 
   input_map = {
